@@ -1,0 +1,44 @@
+/api/login_check:
+  post:
+    tags:
+      - Auth
+    summary: Get Token
+    operationId: getToken
+    style: simple
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                required: true
+                description: Example name
+                example: 'root@root.com'
+              password:
+                type: string
+                required: false
+                description: Example lastName
+                example: 'qwertyuiop'
+
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  example: "valid-token"
+                  description: JWT for User
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"

@@ -1,0 +1,32 @@
+version: '3.5'
+services:
+  boiler-doc-web:
+    container_name: boiler-doc-web
+    build:
+      context: ./docker/nginx
+      args:
+        UID: $U_ID
+    ports:
+      - 2500:80
+    volumes:
+      - ./public:/appdata/www/public
+    depends_on:
+      - boiler-doc-be
+    networks:
+      - boiler-doc-network
+
+  boiler-doc-be:
+    container_name: boiler-doc-be
+    build:
+      context: docker/php
+      args:
+        UID: $U_ID
+    volumes:
+      - ./:/appdata/www
+      - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
+    networks:
+      - boiler-doc-network
+
+networks:
+  boiler-doc-network:
+    external: true

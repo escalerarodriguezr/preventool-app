@@ -1,0 +1,22 @@
+/api/v1/session:
+  get:
+    tags:
+      - Session
+    summary: Get Session
+    operationId: getSession
+    security:
+      - bearerAuth: []
+    style: simple
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/session/SessionView"
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"

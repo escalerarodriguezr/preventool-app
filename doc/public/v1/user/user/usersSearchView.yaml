@@ -1,0 +1,64 @@
+type: object
+properties:
+  total:
+    type: integer
+    desription: Total items without pagination
+    example: 100
+  pages:
+    type: integer
+    desription: Total pages
+    example: 2
+  currentPage:
+    type: integer
+    desription: Current Page
+    example: 1
+  items:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          desription: UserId
+          example: 1e1f4128-9a48-4d94-a056-d87620c26232
+        email:
+          type: string
+          desription: User Email
+          example: 'frodo@frodo.com'
+        role:
+          type: string
+          desription: User Role
+          example: 'ROLE_ADMIN|ROLE_ROOT|ROLE_USER'
+        name:
+          type: string
+          desription: User Name
+          example: 'Frodo'
+        surname:
+          type: string
+          desription: User Surname
+          example: 'Bolson'
+        isEmailConfirmed:
+          type: boolean
+          desription: if the user has confirmed his email
+          example: true
+        isActive:
+          type: boolean
+          desription: if the user is active
+          example: true
+        creatorId:
+          type: string
+          desription: User Creator Id
+          example: 1e1f4128-9a48-4d94-a056-d87620c26232
+        updaterId:
+          type: string
+          desription: User Udater Id
+          example: 1e1f4128-9a48-4d94-a056-d87620c26232
+        createdOn:
+          type: string
+          desription: User CreatedOn
+          example: "2022-03-15T15:35:14+00:00"
+        updatedOn:
+          type: string
+          desription: User UdatedOn
+          example: "2022-03-15T15:35:14+00:00"
+

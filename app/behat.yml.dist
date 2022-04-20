@@ -1,0 +1,15 @@
+default:
+    autoload:
+        '': '%paths.base%/tests/behat'
+    suites:
+        use_case:
+            paths:
+                - '%paths.base%/tests/behat/features/UseCase'
+            contexts:
+                - Contexts\UseCase\DemoContext
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: 'tests/bootstrap.php'
+            kernel:
+                path: web/Kernel.php
+                class: App\Kernel

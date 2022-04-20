@@ -1,0 +1,33 @@
+type: object
+properties:
+  token:
+    type: string
+    example: "78324678324jhdfjhfgdsjhfgew46y52879sdkjhfsdjkfbhdsjkhfb4.dfjhkdsgfhkj"
+    description: Auth Token
+  userId:
+    type: integer
+    example: 1
+    description: Unique Id for User
+  userUuid:
+    type: string
+    example: "02ad717b-1d7a-4f3d-8343-ff71d9341d7d"
+    description: Unique Public Uuid for User
+  email:
+    type: string
+    example: "fernando@api.com"
+    description: User email
+  role:
+    type: string
+    enum:
+      - ROLE_ADMIN
+      - ROLE_ROOT
+    example: "ROLE_ROOT"
+    description: User role
+  name:
+    type: string
+    example: "Fernando"
+    description: User name
+  lastname:
+    type: string
+    example: "Herrera"
+    description: User lastname

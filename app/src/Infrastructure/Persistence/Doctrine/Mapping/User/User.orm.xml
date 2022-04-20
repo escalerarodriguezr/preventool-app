@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="Preventool\Domain\User\Model\Entity\User" table="user">
+
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="uuid" type="guid" />
+        <field name="email" length="100" />
+        <field name="password" length="100"/>
+        <field name="role" type="string" length="50"/>
+        <field name="name" type="string" length="100" nullable="true"/>
+        <field name="lastName" type="string" length="200" nullable="true"/>
+        <field name="isActive" type="boolean"/>
+        <field name="activationCode" length="200"/>
+        <field name="isEmailConfirmed" type="boolean"/>
+
+        <many-to-one field="creator" target-entity="User" >
+            <join-column name="creator_id" referenced-column-name="id" />
+        </many-to-one>
+
+        <many-to-one field="updater" target-entity="User">
+            <join-column name="updater_id" referenced-column-name="id" />
+        </many-to-one>
+
+        <field name="createdOn" type="datetime" />
+        <field name="updatedOn" type="datetime" />
+        <field name="deletedOn" type="datetime" nullable="true" />
+
+        <unique-constraints>
+            <unique-constraint name="U_user_email" columns="email"/>
+            <unique-constraint name="U_user_uuid" columns="uuid"/>
+        </unique-constraints>
+
+        <indexes>
+            <index name="IDX_use_is_active" columns="is_active"/>
+        </indexes>
+
+    </entity>
+</doctrine-mapping>
