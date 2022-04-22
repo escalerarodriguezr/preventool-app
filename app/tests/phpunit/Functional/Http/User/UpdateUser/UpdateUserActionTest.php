@@ -48,5 +48,5 @@ class UpdateUserActionTest extends FunctionalTestBase
         self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
 
     }
-    
+
 }
