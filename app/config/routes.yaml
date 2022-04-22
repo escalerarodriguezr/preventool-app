@@ -17,6 +17,11 @@ api_get_user:
     controller: App\Controller\User\GetUserByUuidController
     methods: [GET]
 
+api_update_user:
+    path: /api/v1/user/{uuid}
+    controller: App\Controller\User\UpdateUserController
+    methods: [PUT]
+
 demo:
     path: /demo
     controller: App\Controller\DemoController
