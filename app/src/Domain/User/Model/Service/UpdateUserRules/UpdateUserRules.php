@@ -5,6 +5,8 @@ namespace Preventool\Domain\User\Model\Service\UpdateUserRules;
 
 use Preventool\Application\User\Command\UpdateUser;
 use Preventool\Domain\User\Model\Entity\User;
+use Preventool\Domain\User\Model\Service\UpdateUserRules\Rules\UpdateAdminUserRule;
+use Preventool\Domain\User\Model\Service\UpdateUserRules\Rules\UpdateRootUserRule;
 
 class UpdateUserRules
 {
@@ -12,7 +14,10 @@ class UpdateUserRules
 
     public function __construct()
     {
-        $this->rules = [];
+        $this->rules = [
+            new UpdateRootUserRule(),
+            new UpdateAdminUserRule()
+        ];
     }
 
     public function satisfiedBy(User $actionUSer, UpdateUser $command): void

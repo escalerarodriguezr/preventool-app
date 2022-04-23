@@ -16,7 +16,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements FixtureInterface
 {
-
+    const FAKE_UUID = '03df8a4e-4598-4033-9bbf-8cd90d7b1f99';
+    
     const ROOT_NAME = 'Root';
     const ROOT_LASTNAME = 'Root';
     const ROOT_ID = 1;
