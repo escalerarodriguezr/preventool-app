@@ -147,57 +147,53 @@
         $ref: "#/components/responses/ConflictException"
       '500':
         $ref: "#/components/responses/InternalError"
-#  put:
-#    tags:
-#      - User
-#    summary: Update User
-#    operationId: putUser
-#    security:
-#      - bearerAuth: [ ]
-#    parameters:
-#      - in: path
-#        name: id
-#        schema:
-#          type: string
-#          example: "9f285960-f482-4f1b-9c88-549a1b4"
-#          description: UserId
-#        required: true
-#    requestBody:
-#      content:
-#        application/json:
-#          schema:
-#            type: object
-#            properties:
-#              name:
-#                type: string
-#                required: false
-#                description: User name
-#                example: 'Cesar Iniesta'
-#              email:
-#                type: string
-#                required: false
-#                description: User email
-#                example: 'cesar@cesar.com'
-#
-#    style: simple
-#    responses:
-#      '200':
-#        description: Successful operation
-#        content:
-#          application/json:
-#            schema:
-#              type: object
-#              required:
-#                - user
-#              properties:
-#                user:
-#                  $ref: "#/components/schemas/user/UserEntity"
-#      '404':
-#        $ref: "#/components/responses/ResourceNotFound"
-#      '409':
-#        $ref: "#/components/responses/ConflictException"
-#      '500':
-#        $ref: "#/components/responses/InternalError"
+  put:
+    tags:
+      - User
+    summary: Update User
+    operationId: putUser
+    security:
+      - bearerAuth: [ ]
+    parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          example: "9f285960-f482-4f1b-9c88-549a1b4"
+          description: UserPublicId
+        required: true
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                required: false
+                description: User name
+                example: 'Cesa'
+              lastname:
+                type: string
+                required: false
+                description: User lastname
+                example: 'Iniesta'
+              email:
+                type: string
+                required: false
+                description: User email
+                example: 'cesar@iniesta.com'
+
+    style: simple
+    responses:
+      '200':
+        description: Successful operation
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"
 #
 #/api/v1/user/{id}/change-password:
 #  put:
