@@ -48,6 +48,7 @@ class JsonTransformerExceptionListener
         }
 
         $event->setResponse($this->prepareResponse($data));
+
     }
 
 

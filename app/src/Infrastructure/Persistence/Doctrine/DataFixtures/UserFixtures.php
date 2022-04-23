@@ -17,7 +17,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserFixtures extends Fixture implements FixtureInterface
 {
     const FAKE_UUID = '03df8a4e-4598-4033-9bbf-8cd90d7b1f99';
-    
+
     const ROOT_NAME = 'Root';
     const ROOT_LASTNAME = 'Root';
     const ROOT_ID = 1;
@@ -26,13 +26,29 @@ class UserFixtures extends Fixture implements FixtureInterface
     const ROOT_PASSWORD = 'peter-password';
     const ROOT_ROLE = User::ROLE_ROOT;
 
+    const ROOT_2_NAME = 'Root_2';
+    const ROOT_2_LASTNAME = 'Root_2';
+    const ROOT_2_ID = 3;
+    const ROOT_2_UUID = '03df8a4e-4598-4033-9bbf-8cd90d7b1f38';
+    const ROOT_2_EMAIL = 'root_2@api.com';
+    const ROOT_2_PASSWORD = 'peter_2-password';
+    const ROOT_2_ROLE = User::ROLE_ROOT;
+
     const FRODO_NAME = 'Frodo';
-    const FRODO_LASTNAME = 'Bolso';
+    const FRODO_LASTNAME = 'Bolson';
     const FRODO_ID = 2;
     const FRODO_UUID = '03df8a4e-4598-4033-9bbf-8cd90d7b1f37';
     const FRODO_EMAIL = 'frodo@api.com';
     const FRODO_PASSWORD = 'frodo-password';
     const FRODO_ROLE = User::ROLE_ADMIN;
+
+    const FRODO_2_NAME = 'Frodo_2';
+    const FRODO_2_LASTNAME = 'Bolson_2';
+    const FRODO_2_ID = 4;
+    const FRODO_2_UUID = '03df8a4e-4598-4033-9bbf-8cd90d7b1f39';
+    const FRODO_2_EMAIL = 'frodo_2@api.com';
+    const FRODO_2_PASSWORD = 'frodo-password';
+    const FRODO_2_ROLE = User::ROLE_ADMIN;
 
     public function __construct(private UserPasswordHasherInterface $passwordHasher)
     {
@@ -61,6 +77,27 @@ class UserFixtures extends Fixture implements FixtureInterface
         );
         $frodo->setCreator($root);
         $manager->persist($frodo);
+
+        $root_2 = $this->createUser(
+            self::ROOT_2_EMAIL,
+            self::ROOT_2_PASSWORD,
+            self::ROOT_2_ROLE,
+            self::ROOT_2_UUID,
+            self::ROOT_2_NAME,
+            self::ROOT_2_LASTNAME
+        );
+        $manager->persist($root_2);
+
+        $frodo_2 = $this->createUser(
+            self::FRODO_2_EMAIL,
+            self::FRODO_2_PASSWORD,
+            self::FRODO_2_ROLE,
+            self::FRODO_2_UUID,
+            self::FRODO_2_NAME,
+            self::FRODO_2_LASTNAME
+        );
+        $frodo->setCreator($root_2);
+        $manager->persist($frodo_2);
 
         $manager->flush();
     }

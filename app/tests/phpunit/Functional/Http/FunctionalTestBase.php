@@ -17,6 +17,7 @@ class FunctionalTestBase extends WebTestCase
     private static ?KernelBrowser $client = null;
     protected static ?KernelBrowser $baseClient = null;
     protected static ?KernelBrowser $authenticatedRootClient = null;
+    protected static ?KernelBrowser $authenticatedAdminFrodoClient = null;
 
     public function setUp():void
     {
@@ -52,6 +53,23 @@ class FunctionalTestBase extends WebTestCase
             $token = static::getContainer()->get(JWTTokenManagerInterface::class)->create($user);
 
             self::$authenticatedRootClient->setServerParameters([
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => \sprintf('Bearer %s', $token),
+            ]);
+        }
+    }
+
+    protected function getAuthenticatedAdminFrodoClient():void
+    {
+        self::$authenticatedAdminFrodoClient = null;
+        if (null === self::$authenticatedAdminFrodoClient) {
+            self::$authenticatedAdminFrodoClient = clone self::$client;
+
+            $user = static::getContainer()->get(UserRepository::class)->findByEmail(UserFixtures::FRODO_EMAIL);
+            $token = static::getContainer()->get(JWTTokenManagerInterface::class)->create($user);
+
+            self::$authenticatedAdminFrodoClient->setServerParameters([
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_ACCEPT' => 'application/json',
                 'HTTP_Authorization' => \sprintf('Bearer %s', $token),

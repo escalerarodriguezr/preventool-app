@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Preventool\Domain\User\Model\Service\UpdateUserRules;
 
-use Preventool\Application\User\Command\UpdateUser;
 use Preventool\Domain\User\Model\Entity\User;
 use Preventool\Domain\User\Model\Service\UpdateUserRules\Rules\UpdateAdminUserRule;
 use Preventool\Domain\User\Model\Service\UpdateUserRules\Rules\UpdateRootUserRule;
@@ -20,10 +19,10 @@ class UpdateUserRules
         ];
     }
 
-    public function satisfiedBy(User $actionUSer, UpdateUser $command): void
+    public function satisfiedBy(User $actionUSer, User $user): void
     {
         foreach ($this->rules as $rule){
-            $rule->satisfiedBy($actionUSer,$command);
+            $rule->satisfiedBy($actionUSer,$user);
         }
     }
 

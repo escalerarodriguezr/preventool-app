@@ -26,15 +26,15 @@ class UpdateUserActionTest extends FunctionalTestBase
         ]);
     }
 
-    public function testUpdateRootUserNameAndLastnameByRootUserRoleSuccessResponse()
+    public function testUpdateRootUserNameLastNameEmailByRootUserRoleSuccessResponse()
     {
-
         $this->prepareDataBase();
         $this->getAuthenticatedRootClient();
 
         $payload = [
             UpdateUserRequest::NAME => 'Kawhi',
             UpdateUserRequest::LASTNAME => 'Leonard',
+            UpdateUserRequest::EMAIL => 'leonard@leonard.com',
         ];
 
         self::$authenticatedRootClient->request(
@@ -46,7 +46,172 @@ class UpdateUserActionTest extends FunctionalTestBase
 
         $response = self::$authenticatedRootClient->getResponse();
         self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
-
     }
 
+    public function testUpdateRootUserErrorInputNameLastNameEmailByRootUserRoleBadRequestResponse()
+    {
+
+        $this->prepareDataBase();
+        $this->getAuthenticatedRootClient();
+
+        $payload = [
+            UpdateUserRequest::NAME => '',
+            UpdateUserRequest::LASTNAME => 'Leonard',
+            UpdateUserRequest::EMAIL => 'leonard@leonard.com',
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_PUT,
+            sprintf('%s/%s',self::ENDPOINT,UserFixtures::ROOT_UUID),
+            [],[],[],
+            \json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        self::assertEquals(Response::HTTP_BAD_REQUEST,$response->getStatusCode());
+    }
+
+    public function testUpdateRootUserNameErrorInputLastNameEmailByRootUserRoleBadRequestResponse()
+    {
+
+        $this->prepareDataBase();
+        $this->getAuthenticatedRootClient();
+
+        $payload = [
+            UpdateUserRequest::NAME => 'Kawai',
+            UpdateUserRequest::LASTNAME => '',
+            UpdateUserRequest::EMAIL => 'leonard@leonard.com',
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_PUT,
+            sprintf('%s/%s',self::ENDPOINT,UserFixtures::ROOT_UUID),
+            [],[],[],
+            \json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        self::assertEquals(Response::HTTP_BAD_REQUEST,$response->getStatusCode());
+    }
+
+    public function testUpdateRootUserNameLastNameErrorInputEmailByRootUserRoleBadRequestResponse()
+    {
+
+        $this->prepareDataBase();
+        $this->getAuthenticatedRootClient();
+
+        $payload = [
+            UpdateUserRequest::NAME => 'Kawhi',
+            UpdateUserRequest::LASTNAME => 'Leonard',
+            UpdateUserRequest::EMAIL => 'leonar',
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_PUT,
+            sprintf('%s/%s',self::ENDPOINT,UserFixtures::ROOT_UUID),
+            [],[],[],
+            \json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        self::assertEquals(Response::HTTP_BAD_REQUEST,$response->getStatusCode());
+    }
+
+    public function testUpdateAdminUserByRootUserRoleSuccessResponse()
+    {
+
+        $this->prepareDataBase();
+        $this->getAuthenticatedRootClient();
+
+        $payload = [
+            UpdateUserRequest::NAME => 'Kawhi',
+            UpdateUserRequest::LASTNAME => 'Leonard',
+            UpdateUserRequest::EMAIL => 'leonard@leonard.com',
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_PUT,
+            sprintf('%s/%s',self::ENDPOINT,UserFixtures::FRODO_UUID),
+            [],[],[],
+            \json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
+    }
+
+
+//    public function testUpdateRootUserByAdminUserRoleConflictResponse()
+//    {
+//
+//        $this->prepareDataBase();
+//
+//        $this->getAuthenticatedAdminFrodoClient();
+//
+//        $payload = [
+//            UpdateUserRequest::NAME => 'Kawhi',
+//            UpdateUserRequest::LASTNAME => 'Leonard',
+//            UpdateUserRequest::EMAIL => 'leonar@leonard.com',
+//        ];
+//
+//        self::$authenticatedAdminFrodoClient->request(
+//            Request::METHOD_PUT,
+//            sprintf('%s/%s',self::ENDPOINT,UserFixtures::ROOT_UUID),
+//            [],[],[],
+//            \json_encode($payload)
+//        );
+//
+//        $response = self::$authenticatedAdminFrodoClient->getResponse();
+//
+//
+//
+//
+//        self::assertEquals(Response::HTTP_CONFLICT,$response->getStatusCode());
+//    }
+
+    public function testUpdateRootUserByAnotherRootUserBadRequestResponse()
+    {
+
+        $this->prepareDataBase();
+        $this->getAuthenticatedRootClient();
+
+        $payload = [
+            UpdateUserRequest::NAME => 'Kawhi',
+            UpdateUserRequest::LASTNAME => 'Leonard',
+            UpdateUserRequest::EMAIL => 'leonar@leonard.com',
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_PUT,
+            sprintf('%s/%s',self::ENDPOINT,UserFixtures::ROOT_2_UUID),
+            [],[],[],
+            \json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        self::assertEquals(Response::HTTP_CONFLICT,$response->getStatusCode());
+    }
+
+    public function testUpdateAdminUserByAnotherAdminUserBadRequestResponse()
+    {
+
+        $this->prepareDataBase();
+        $this->getAuthenticatedAdminFrodoClient();
+
+        $payload = [
+            UpdateUserRequest::NAME => 'Kawhi',
+            UpdateUserRequest::LASTNAME => 'Leonard',
+            UpdateUserRequest::EMAIL => 'leonar@leonard.com',
+        ];
+
+        self::$authenticatedAdminFrodoClient->request(
+            Request::METHOD_PUT,
+            sprintf('%s/%s',self::ENDPOINT,UserFixtures::FRODO_2_UUID),
+            [],[],[],
+            \json_encode($payload)
+        );
+
+        $response = self::$authenticatedAdminFrodoClient->getResponse();
+        self::assertEquals(Response::HTTP_CONFLICT,$response->getStatusCode());
+    }
 }

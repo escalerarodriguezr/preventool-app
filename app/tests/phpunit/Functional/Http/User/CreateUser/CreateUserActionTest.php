@@ -56,6 +56,7 @@ class CreateUserActionTest extends FunctionalTestBase
         $this->prepareDataBase();
         $this->getAuthenticatedRootClient();
 
+
         $payload = [
             'email' => 'brian@api.com',
             'password' => 'password123',

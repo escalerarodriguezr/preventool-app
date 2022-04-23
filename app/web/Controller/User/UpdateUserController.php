@@ -36,7 +36,7 @@ class UpdateUserController
             $updateUserRequest->getEmail() ?? null
         );
 
-        $this->commandBus->dispatch($command);
+            $this->commandBus->dispatch($command);
 
         return new JsonResponse(null,Response::HTTP_OK);
 
