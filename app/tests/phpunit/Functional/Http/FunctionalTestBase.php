@@ -28,6 +28,7 @@ class FunctionalTestBase extends WebTestCase
 
     protected function getClient():void
     {
+        self::$client = null;
         if (null === self::$client) {
             self::$client = static::createClient();
         }
@@ -35,6 +36,7 @@ class FunctionalTestBase extends WebTestCase
 
     protected function getBaseClient():void
     {
+        self::$baseClient = null;
         if (null === self::$baseClient) {
             self::$baseClient = clone self::$client;
             self::$baseClient->setServerParameters([
@@ -46,6 +48,7 @@ class FunctionalTestBase extends WebTestCase
 
     protected function getAuthenticatedRootClient():void
     {
+        self::$authenticatedRootClient = null;
         if (null === self::$authenticatedRootClient) {
             self::$authenticatedRootClient = clone self::$client;
 

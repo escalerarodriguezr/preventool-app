@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 class UpdateUserController
 {
 
-
     public function __construct(
         private HttpActionUserService $httpActionUserService,
         private UuidValidatorSymfony $uuidValidator,
@@ -39,7 +38,6 @@ class UpdateUserController
             $this->commandBus->dispatch($command);
 
         return new JsonResponse(null,Response::HTTP_OK);
-
 
     }
 

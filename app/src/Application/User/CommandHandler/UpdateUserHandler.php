@@ -14,7 +14,6 @@ use Preventool\Domain\User\Repository\UserRepository;
 class UpdateUserHandler implements CommandHandler
 {
 
-
     public function __construct(
         private UserRepository $userRepository,
         private UpdateUserRules $updateUserRules
@@ -44,6 +43,5 @@ class UpdateUserHandler implements CommandHandler
 
         $this->userRepository->save($user);
     }
-
 
 }
