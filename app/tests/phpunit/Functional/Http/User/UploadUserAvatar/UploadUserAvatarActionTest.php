@@ -88,7 +88,5 @@ class UploadUserAvatarActionTest extends FunctionalTestBase
 
         $response = self::$authenticatedRootClient->getResponse();
         self::assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
-
     }
-
 }

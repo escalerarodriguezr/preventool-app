@@ -5,7 +5,7 @@ namespace Preventool\Infrastructure\FileStorage\DigitalOceanStorage;
 use League\Flysystem\FilesystemOperator;
 use Preventool\Domain\Shared\Service\FileStorageManager\FileStorageManager;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DigitalOceanFileStorageManager implements FileStorageManager
@@ -32,7 +32,7 @@ class DigitalOceanFileStorageManager implements FileStorageManager
 
         }catch (\Exception $e){
             $this->logger->warning("Error uploading file");
-            throw new FileNotFoundException('Error uploading file');
+            throw new IOException('Error uploading file');
         }
 
         return $fileName;
@@ -46,9 +46,8 @@ class DigitalOceanFileStorageManager implements FileStorageManager
             }
         } catch (\Exception $e) {
             $this->logger->warning(\sprintf('File %s not found in the storage', $path));
-            throw new FileNotFoundException(\sprintf('File %s not found in the storage', $path));
+            throw new IOException(\sprintf('File %s not found in the storage', $path));
         }
     }
-
 
 }
