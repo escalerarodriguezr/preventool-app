@@ -6,7 +6,6 @@ namespace App\Controller\User;
 use Preventool\Application\User\Command\UploadUserAvatar;
 use Preventool\Domain\Shared\Bus\Command\CommandBus;
 use Preventool\Domain\Shared\Service\FileStorageManager\FileStorageManager;
-use Preventool\Infrastructure\FileStorage\DigitalOceanStorage\DigitalOceanFileStorageManager;
 use Preventool\Infrastructure\Ui\Http\Request\DTO\User\UploadUserAvatarRequest;
 use Preventool\Infrastructure\Ui\Http\Service\HttpActionUserService;
 use Preventool\Infrastructure\Ui\Http\Service\UuidValidatorSymfony;
@@ -18,7 +17,7 @@ class UploadUserAvatarController
     public function __construct(
         private HttpActionUserService $httpActionUserService,
         private UuidValidatorSymfony $uuidValidator,
-        private DigitalOceanFileStorageManager $digitalOceanFileStorageManager,
+        private FileStorageManager $digitalOceanFileStorageManager,
         private CommandBus $commandBus
 
     )
@@ -30,7 +29,7 @@ class UploadUserAvatarController
         $this->uuidValidator->validate($uuid);
         $avatarResource = $this->digitalOceanFileStorageManager->uploadFile(
             $uploadUserAvatarRequest->getAvatar(),
-            'avatar',
+            sprintf('%s/%s','avatar',$uuid),
             FileStorageManager::VISIBILITY_PUBLIC
         );
 
@@ -42,9 +41,7 @@ class UploadUserAvatarController
         );
 
         $this->commandBus->dispatch($command);
-
         return new JsonResponse(['avatarResource'=>$avatarResource],Response::HTTP_OK);
     }
-
 
 }

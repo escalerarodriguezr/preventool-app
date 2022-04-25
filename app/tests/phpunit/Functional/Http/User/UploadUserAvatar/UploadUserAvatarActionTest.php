@@ -29,13 +29,11 @@ class UploadUserAvatarActionTest extends FunctionalTestBase
     {
         $this->prepareDataBase();;
         $this->getAuthenticatedRootClient();
-
         //Fake file
         $avatar = new UploadedFile(
             __DIR__.'/avatar.png',
             'avatar.png'
         );
-
 
         self::$authenticatedRootClient->request(
             Request::METHOD_POST,
@@ -48,8 +46,49 @@ class UploadUserAvatarActionTest extends FunctionalTestBase
         self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
         $responseData = \json_decode($response->getContent(), true);
         self::assertArrayHasKey('avatarResource', $responseData);
-
     }
 
+    public function testRootUserUploadSelfUserAvatarErrorInputBadRequestResponse()
+    {
+        $this->prepareDataBase();;
+        $this->getAuthenticatedRootClient();
+        //Fake file
+        $avatar = new UploadedFile(
+            __DIR__.'/avatar.png',
+            'avatar.png'
+        );
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_POST,
+            sprintf(self::ENDPOINT,UserFixtures::ROOT_UUID),
+            [],
+            ['avatar_fake' => $avatar]
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
+    }
+
+    public function testUploadUserAvatarInputMimeErrorBadRequestResponse()
+    {
+        $this->prepareDataBase();;
+        $this->getAuthenticatedRootClient();
+        
+        $avatar = new UploadedFile(
+            __DIR__.'/fake.txt',
+            'fake.txt'
+        );
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_POST,
+            sprintf(self::ENDPOINT,UserFixtures::ROOT_UUID),
+            [],
+            ['avatar_fake' => $avatar]
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
+
+    }
 
 }

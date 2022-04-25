@@ -18,14 +18,14 @@ class UploadUserAvatarRequest implements RequestDTO
      *     mimeTypesMessage = "Please upload a valid Image"
      * )
      */
-    private UploadedFile $avatar;
+    private ?UploadedFile $avatar;
 
     public function __construct(Request $request)
     {
         $this->avatar = $request->files->get('avatar');
     }
 
-    public function getAvatar(): UploadedFile
+    public function getAvatar(): ?UploadedFile
     {
         return $this->avatar;
     }
