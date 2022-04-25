@@ -10,6 +10,9 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $mediaPath: '%env(resolve:SUBDOMAIN)%'
+            $projectDigitalOceanStoragePath: '%env(resolve:PROJECT_PATH)%'
 
     App\Controller\:
         resource: '../web/Controller/'
@@ -50,6 +53,17 @@ services:
     Preventool\Infrastructure\Ui\Http\Listener\Shared\JsonTransformerExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 100 }
+
+    #Infrastructure Services
+    app.images.s3:
+        class: Aws\S3\S3Client
+        arguments:
+            - version: '%env(resolve:VERSION)%'
+              region: '%env(resolve:REGION)%'
+              endpoint: '%env(resolve:ENDPOINT)%'
+              credentials:
+                  key: '%env(resolve:KEY)%'
+                  secret: '%env(resolve:SECRET)%'
 
     #Repository
     Preventool\Domain\Demo\Repository\DemoRepository:
