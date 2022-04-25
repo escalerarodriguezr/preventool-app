@@ -4,8 +4,13 @@
 PHP application using ***Domain-Driven Design (DDD) and Command Query Responsibility Segregation (CQRS)*** principles.\
 Implemented with Symfony 5.4 and includes `Docker configuration`.
 
-It contains Open API v3 documentation
+- Authentication system with Json Web Tokens (JWT) (https://github.com/lexik/LexikJWTAuthenticationBundle)
+- It contains Open API v3 documentation
 ![Endpoints](./doc/endpoints.png)
+- Storage in DigitalOcean Spaces that are compatible with the AWS S3
+- Unit tests
+- Integration tests
+- Functional tests to cover the user endpoints use cases
 
 ## Usage /app
 - `make copy-files` to creates a copy of .env and docker-compose.yml.dist file to use locally

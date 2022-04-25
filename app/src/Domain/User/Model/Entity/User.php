@@ -31,6 +31,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $isEmailConfirmed;
     private bool $isActive;
 
+    private ?string $avatarResource;
+
     private ?User $creator;
     private ?User $updater;
     private \DateTime $createdOn;
@@ -232,6 +234,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUsername(): string
     {
         return $this->email;
+    }
+
+    public function getAvatarResource(): ?string
+    {
+        return $this->avatarResource;
+    }
+
+    public function setAvatarResource(?string $avatarResource): void
+    {
+        $this->avatarResource = $avatarResource;
     }
 
 }
