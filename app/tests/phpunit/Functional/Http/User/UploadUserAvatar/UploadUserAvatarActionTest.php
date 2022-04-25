@@ -46,6 +46,8 @@ class UploadUserAvatarActionTest extends FunctionalTestBase
 
         $response = self::$authenticatedRootClient->getResponse();
         self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
+        $responseData = \json_decode($response->getContent(), true);
+        self::assertArrayHasKey('avatarResource', $responseData);
 
     }
 
