@@ -30,6 +30,7 @@ class UploadUserAvatarActionTest extends FunctionalTestBase
         $this->prepareDataBase();;
         $this->getAuthenticatedRootClient();
 
+        //Fake file
         $avatar = new UploadedFile(
             __DIR__.'/avatar.png',
             'avatar.png'
