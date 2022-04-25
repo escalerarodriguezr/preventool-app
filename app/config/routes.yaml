@@ -22,6 +22,11 @@ api_update_user:
     controller: App\Controller\User\UpdateUserController
     methods: [PUT]
 
+api_upload_user_avatar:
+    path: /api/v1/user/{uuid}/avatar
+    controller: App\Controller\User\UploadUserAvatarController
+    methods: [POST]
+
 demo:
     path: /demo
     controller: App\Controller\DemoController

@@ -10,6 +10,9 @@
         "doctrine/doctrine-bundle": "^2.6",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
+        "league/flysystem-aws-s3-v3": "^3.0",
+        "league/flysystem-bundle": "^2.2",
+        "league/flysystem-memory": "^3.0",
         "lexik/jwt-authentication-bundle": "^2.15",
         "nelmio/cors-bundle": "^2.2",
         "phpunit/phpunit": "^9.5",
@@ -87,6 +90,7 @@
         "friends-of-behat/mink-browserkit-driver": "^1.6",
         "friends-of-behat/mink-extension": "^2.6",
         "friends-of-behat/symfony-extension": "^2.3",
-        "liip/test-fixtures-bundle": "^2.0.0"
+        "liip/test-fixtures-bundle": "^2.0.0",
+      "ext-http": "*"
     }
 }
