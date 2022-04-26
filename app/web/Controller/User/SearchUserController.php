@@ -32,9 +32,7 @@ class SearchUserController
             ->setFilterByUuid($request->getFilterByUuid())
         );
 
-        return new JsonResponse(null,Response::HTTP_OK);
-
+        return new JsonResponse($response->toArray(),Response::HTTP_OK);
     }
-
 
 }

@@ -7,10 +7,11 @@ use Preventool\Domain\Shared\Bus\Query\QueryHandler;
 
 class SearchUserQueryHandler implements QueryHandler
 {
-    public function __invoke(SearchUserQuery $query):bool
+    public function __invoke(SearchUserQuery $query):SearchUserQueryView
     {
-        return true;
-        // TODO: Implement __invoke() method.
+        $view = new SearchUserQueryView(100,10,1);
+        return $view;
+
     }
 
 

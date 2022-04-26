@@ -43,12 +43,12 @@ class SearchUserActionTest extends FunctionalTestBase
             $queryParams
         );
 
-        $reponse = self::$authenticatedRootClient->getResponse();
+        $response = self::$authenticatedRootClient->getResponse();
+        $responseData = \json_decode($response->getContent(), true);
 
-        self::assertEquals(Response::HTTP_OK,$reponse->getStatusCode());
-
-
-
+        self::assertArrayHasKey('total', $responseData);
+        self::assertArrayHasKey('pages', $responseData);
+        self::assertArrayHasKey('currentPage', $responseData);
 
     }
 
