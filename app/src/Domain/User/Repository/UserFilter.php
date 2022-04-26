@@ -21,5 +21,4 @@ class UserFilter
     {
         return $this->filterByEmail;
     }
-
 }

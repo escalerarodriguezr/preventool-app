@@ -15,6 +15,7 @@ class UserQueryView
     private bool $isActive;
     private ?string $creatorUuid;
     private string $createdOn;
+    private ?string $updatedOn;
 
     public function __construct()
     {
@@ -130,6 +131,19 @@ class UserQueryView
         return $this;
     }
 
+    public function getUpdatedOn(): ?string
+    {
+        return $this->updatedOn;
+    }
+
+    public function setUpdatedOn(?string $updatedOn): self
+    {
+        $this->updatedOn = $updatedOn;
+        return $this;
+    }
+
+
+
     public function toArray(): array
     {
         return [
@@ -142,7 +156,8 @@ class UserQueryView
             'isActive' => $this->isActive,
             'isEmailConfirmed' => $this->isEmailConfirmed,
             'creatorUuid' => $this->creatorUuid,
-            'createdOn' => $this->createdOn
+            'createdOn' => $this->createdOn,
+            'updatedOn' => $this->updatedOn
         ];
     }
 
