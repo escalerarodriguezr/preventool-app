@@ -18,8 +18,12 @@ properties:
       type: object
       properties:
         id:
-          type: string
+          type: integer
           desription: UserId
+          example: 1
+        uuid:
+          type: string
+          desription: Public User Uuid
           example: 1e1f4128-9a48-4d94-a056-d87620c26232
         email:
           type: string
@@ -33,7 +37,7 @@ properties:
           type: string
           desription: User Name
           example: 'Frodo'
-        surname:
+        lastName:
           type: string
           desription: User Surname
           example: 'Bolson'
@@ -45,11 +49,11 @@ properties:
           type: boolean
           desription: if the user is active
           example: true
-        creatorId:
+        creatorUuid:
           type: string
           desription: User Creator Id
           example: 1e1f4128-9a48-4d94-a056-d87620c26232
-        updaterId:
+        updaterUuid:
           type: string
           desription: User Udater Id
           example: 1e1f4128-9a48-4d94-a056-d87620c26232
