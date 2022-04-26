@@ -5,6 +5,8 @@ namespace PHPUnit\Tests\Functional\Http\User\SearchUser;
 
 use PHPUnit\Tests\Functional\Http\FunctionalTestBase;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SearchUserActionTest extends FunctionalTestBase
 {
@@ -24,9 +26,26 @@ class SearchUserActionTest extends FunctionalTestBase
 
     public function testSearchUserByUuid()
     {
-        dd("llega");
         $this->prepareDataBase();
         $this->getAuthenticatedRootClient();
+
+        $queryParams = [
+            'filterByUuid' => UserFixtures::ROOT_UUID,
+            'pageSize' => 50,
+            'currentPage' => 2,
+            'orderBy' => 'email',
+            'orderDirection' => 'ASC'
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_GET,
+            self::ENDPOINT,
+            $queryParams
+        );
+
+        $reponse = self::$authenticatedRootClient->getResponse();
+
+        self::assertEquals(Response::HTTP_OK,$reponse->getStatusCode());
 
 
 
