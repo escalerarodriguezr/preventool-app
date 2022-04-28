@@ -98,6 +98,11 @@ class DoctrineUserRepository extends MysqlDoctrineBaseRepository implements User
                 ->setParameter(':email', $filter->getFilterByEmail());
         }
 
+        if(!empty($filter->getFilterByUuid())){
+            $queryBuilder->andWhere('u.uuid = :uuid')
+                ->setParameter(':uuid', $filter->getFilterByUuid());
+        }
+
         if($filter->getFilterByIsActive() !== null) {
             $queryBuilder->andWhere
             (

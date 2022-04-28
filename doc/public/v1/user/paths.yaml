@@ -63,24 +63,12 @@
       - $ref: '#/components/parameters/SearchOrderDirectionParam'
       - $ref: '#/components/parameters/SearchPageSizeParam'
       - $ref: '#/components/parameters/SearchCurrentPageParam'
-      - name: filterById
-        in: query
-        required: false
-        schema:
-          type: integer
-        description: Filter by User Id
       - name: filterByUuid
         in: query
         required: false
         schema:
           type: string
         description: Filter by User Public Uuid
-      - name: filterByName
-        in: query
-        required: false
-        schema:
-          type: string
-        description: Filter by User Name
       - name: filterByEmail
         in: query
         required: false

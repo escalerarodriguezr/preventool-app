@@ -88,13 +88,45 @@ class SearchUserActionTest extends FunctionalTestBase
         self::assertEquals(0,count($users));
     }
 
-    public function testSearchUserByUuid()
+    public function testSearchUserByEmail()
     {
         $this->prepareDataBase();
         $this->getAuthenticatedRootClient();
 
         $queryParams = [
             'filterByEmail' => UserFixtures::ROOT_EMAIL,
+            'pageSize' => 50,
+            'currentPage' => 1,
+            'orderBy' => 'email',
+            'orderDirection' => 'ASC'
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_GET,
+            self::ENDPOINT,
+            $queryParams
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        $responseData = \json_decode($response->getContent(), true);
+
+        self::assertArrayHasKey('total', $responseData);
+        self::assertArrayHasKey('pages', $responseData);
+        self::assertArrayHasKey('currentPage', $responseData);
+        self::assertArrayHasKey('items', $responseData);
+
+        $users = $responseData['items'];
+        self::assertIsArray($users);
+        self::assertEquals(1,count($users));
+    }
+
+    public function testSearchUserByUuid()
+    {
+        $this->prepareDataBase();
+        $this->getAuthenticatedRootClient();
+
+        $queryParams = [
+            'filterByUuid' => UserFixtures::ROOT_UUID,
             'pageSize' => 50,
             'currentPage' => 1,
             'orderBy' => 'email',
