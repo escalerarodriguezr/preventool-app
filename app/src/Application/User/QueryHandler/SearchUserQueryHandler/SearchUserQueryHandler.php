@@ -22,7 +22,8 @@ class SearchUserQueryHandler implements QueryHandler
     {
         $filter = new UserFilter(
             $query->getFilterByUuid(),
-            $query->getFilterByEmail()
+            $query->getFilterByEmail(),
+            $query->getFilterByIsActive()
         );
 
         $queryCondition = (new QueryCondition())
@@ -39,8 +40,6 @@ class SearchUserQueryHandler implements QueryHandler
             $paginatedQueryView->getCurrentPage(),
             $paginatedQueryView->getItems()
         );
-        
     }
-
 
 }

@@ -14,6 +14,7 @@ class SearchUserQuery implements Query
 
     private ?string $filterByUuid;
     private ?string $filterByEmail;
+    private ?bool $filterByIsActive;
 
     public function __construct()
     {
@@ -81,6 +82,17 @@ class SearchUserQuery implements Query
     public function setFilterByEmail(?string $filterByEmail): self
     {
         $this->filterByEmail = $filterByEmail;
+        return $this;
+    }
+
+    public function getFilterByIsActive(): ?bool
+    {
+        return $this->filterByIsActive;
+    }
+
+    public function setFilterByIsActive(?bool $filterByIsActive): self
+    {
+        $this->filterByIsActive = $filterByIsActive;
         return $this;
     }
 

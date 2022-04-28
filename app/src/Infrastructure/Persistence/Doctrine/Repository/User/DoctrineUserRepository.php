@@ -89,10 +89,6 @@ class DoctrineUserRepository extends MysqlDoctrineBaseRepository implements User
         );
     }
 
-
-
-
-
     private function search(UserFilter $filter): QueryBuilder
     {
         $queryBuilder = $this->objectRepository->createQueryBuilder('u');
@@ -102,9 +98,14 @@ class DoctrineUserRepository extends MysqlDoctrineBaseRepository implements User
                 ->setParameter(':email', $filter->getFilterByEmail());
         }
 
+        if($filter->getFilterByIsActive() !== null) {
+            $queryBuilder->andWhere
+            (
+                $queryBuilder->expr()->eq('u.isActive', ':active'),
+            )
+                ->setParameter(':active', $filter->getFilterByIsActive());
+        }
         return $queryBuilder;
     }
-
-
 
 }
