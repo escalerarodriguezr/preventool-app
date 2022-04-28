@@ -5,5 +5,5 @@ namespace Preventool\Domain\Shared\Bus\Message;
 
 interface MessageBus
 {
-    public function dispatch(Message $message, string $queue): void;
+    public function publish(Message $message, string $queue): void;
 }

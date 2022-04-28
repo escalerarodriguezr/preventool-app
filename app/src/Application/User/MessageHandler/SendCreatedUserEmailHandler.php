@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 
 class SendCreatedUserEmailHandler implements MessageHandler
 {
-    
+
     public function __construct(
         private LoggerInterface $logger
     )
@@ -18,9 +18,7 @@ class SendCreatedUserEmailHandler implements MessageHandler
 
     public function __invoke(SendCreatedUserEmail $message)
     {
-
-        $this->logger->info("***************************************rabbit llega al handler asincrono");
-        // TODO: Implement __invoke() method.
+        $this->logger->info(sprintf("Send email to: %s", $message->getEmail()));
     }
 
 

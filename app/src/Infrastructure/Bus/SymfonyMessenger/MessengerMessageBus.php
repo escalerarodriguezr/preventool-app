@@ -12,14 +12,11 @@ use Symfony\Component\Messenger\MessageBusInterface;
 final class MessengerMessageBus implements MessageBus
 {
 
-    public function __construct(private MessageBusInterface $messageBus)
-    {
-    }
+    public function __construct(private MessageBusInterface $messageBus){}
 
-    public function dispatch(Message $message, string $queue): void
+    public function publish(Message $message, string $queue): void
     {
         $this->messageBus->dispatch($message,[new AmqpStamp($queue)]);
     }
-
 
 }

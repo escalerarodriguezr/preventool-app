@@ -21,7 +21,7 @@ class UserCreatedMessageHandler implements EventHandler
     public function __invoke(UserCreated $userCreated):void
     {
 
-        $this->messageBus->dispatch(
+        $this->messageBus->publish(
             new SendCreatedUserEmail($userCreated->getEmail()),
             RoutingKey::PREVENTOOL_PREVENTOOL_QUEUE
         );
