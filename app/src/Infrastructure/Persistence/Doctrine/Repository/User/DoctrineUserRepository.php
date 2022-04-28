@@ -4,10 +4,15 @@ namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\User;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ObjectManager;
+use Preventool\Domain\Shared\Repository\QueryCondition\QueryCondition;
+use Preventool\Domain\Shared\Repository\View\PaginatedQueryView;
 use Preventool\Domain\User\Model\Entity\User;
 use Preventool\Domain\User\Model\Exception\UserAlreadyExistsException;
 use Preventool\Domain\User\Model\Exception\UserNotFoundException;
+use Preventool\Domain\User\Repository\UserFilter;
 use Preventool\Domain\User\Repository\UserRepository;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\MysqlDoctrineBaseRepository;
 
@@ -59,5 +64,53 @@ class DoctrineUserRepository extends MysqlDoctrineBaseRepository implements User
         return $user;
     }
 
+    public function searchPaginated(
+        QueryCondition $queryCondition,
+        UserFilter $filter,
+        $fetchJoinCollections = false
+
+    ):PaginatedQueryView
+    {
+        $queryBuilder = $this->search($filter);
+        $queryBuilder
+            ->setFirstResult($queryCondition->getPageSize() * ($queryCondition->getCurrentPage()-1))
+            ->setMaxResults($queryCondition->getPageSize())
+            ->orderBy(sprintf('u.%s',$queryCondition->getOrderBy()), $queryCondition->getOrderDirection());
+
+        $paginator = new Paginator($queryBuilder->getQuery(), $fetchJoinCollections);
+        $total = $paginator->count();
+        $pages = (int) ceil($total/$queryCondition->getPageSize());
+
+        return new PaginatedQueryView(
+            $total,
+            $pages,
+            $queryCondition->getCurrentPage(),
+            $paginator->getIterator()
+        );
+    }
+
+    private function search(UserFilter $filter): QueryBuilder
+    {
+        $queryBuilder = $this->objectRepository->createQueryBuilder('u');
+
+        if(!empty($filter->getFilterByEmail())){
+            $queryBuilder->andWhere('u.email = :email')
+                ->setParameter(':email', $filter->getFilterByEmail());
+        }
+
+        if(!empty($filter->getFilterByUuid())){
+            $queryBuilder->andWhere('u.uuid = :uuid')
+                ->setParameter(':uuid', $filter->getFilterByUuid());
+        }
+
+        if($filter->getFilterByIsActive() !== null) {
+            $queryBuilder->andWhere
+            (
+                $queryBuilder->expr()->eq('u.isActive', ':active'),
+            )
+                ->setParameter(':active', $filter->getFilterByIsActive());
+        }
+        return $queryBuilder;
+    }
 
 }

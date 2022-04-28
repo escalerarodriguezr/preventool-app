@@ -50,67 +50,61 @@
       '500':
         $ref: "#/components/responses/InternalError"
 
-#  get:
-#    tags:
-#      - User
-#    summary: Search Users
-#    operationId: searchUsers
-#    security:
-#      - bearerAuth: [ ]
-#    style: simple
-#    parameters:
-#      - $ref: '#/components/parameters/SearchOrderByParam'
-#      - $ref: '#/components/parameters/SearchOrderDirectionParam'
-#      - $ref: '#/components/parameters/SearchPageSizeParam'
-#      - $ref: '#/components/parameters/SearchCurrentPageParam'
-#      - name: filterById
-#        in: query
-#        required: false
-#        schema:
-#          type: integer
-#        description: Filter by User Id
-#      - name: filterByName
-#        in: query
-#        required: false
-#        schema:
-#          type: string
-#        description: Filter by User Name
-#      - name: filterByEmail
-#        in: query
-#        required: false
-#        schema:
-#          type: string
-#        description: Filter by User Email
-#      - name: filterByIsActive
-#        in: query
-#        required: false
-#        schema:
-#          type: boolean
-#        description: Filter By User Is Active
-#    responses:
-#      '200':
-#        description: Successful operation
-#        content:
-#          application/json:
-#            schema:
-#              type: object
-#              required:
-#                - code
-#                - data
-#              properties:
-#                code:
-#                  type: integer
-#                  example: 200
-#                  description: Success code = 200
-#                data:
-#                  $ref: "#/components/schemas/user/UsersSearchView"
-#
-#      '404':
-#        $ref: "#/components/responses/ResourceNotFound"
-#      '409':
-#        $ref: "#/components/responses/ConflictException"
-#      '500':
-#        $ref: "#/components/responses/InternalError"
+  get:
+    tags:
+      - User
+    summary: Search Users
+    operationId: searchUsers
+    security:
+      - bearerAuth: [ ]
+    style: simple
+    parameters:
+      - $ref: '#/components/parameters/SearchOrderByParam'
+      - $ref: '#/components/parameters/SearchOrderDirectionParam'
+      - $ref: '#/components/parameters/SearchPageSizeParam'
+      - $ref: '#/components/parameters/SearchCurrentPageParam'
+      - name: filterByUuid
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by User Public Uuid
+      - name: filterByEmail
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by User Email
+      - name: filterByIsActive
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Filter By User Is Active
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+                - data
+              properties:
+                code:
+                  type: integer
+                  example: 200
+                  description: Success code = 200
+                data:
+                  $ref: "#/components/schemas/user/UsersSearchView"
+
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"
 
 /api/v1/user/{uuid}:
   get:
