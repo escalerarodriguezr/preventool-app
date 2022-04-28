@@ -7,7 +7,6 @@ use Preventool\Application\User\Message\SendCreatedUserEmail;
 use Preventool\Domain\Shared\Bus\Event\EventHandler;
 use Preventool\Domain\Shared\Bus\Message\MessageBus;
 use Preventool\Domain\Shared\Bus\Message\RoutingKey;
-use Psr\Log\LoggerInterface;
 
 class UserCreatedMessageHandler implements EventHandler
 {
@@ -20,13 +19,10 @@ class UserCreatedMessageHandler implements EventHandler
 
     public function __invoke(UserCreated $userCreated):void
     {
-
         $this->messageBus->publish(
             new SendCreatedUserEmail($userCreated->getEmail()),
             RoutingKey::PREVENTOOL_PREVENTOOL_QUEUE
         );
-
     }
-
-
+    
 }

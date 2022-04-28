@@ -8,11 +8,11 @@ use Preventool\Domain\User\Model\Entity\User;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\Transport\InMemoryTransport;
 
 class CreateUserActionTest extends FunctionalTestBase
 {
     private const ENDPOINT = '/api/v1/user';
-
 
     public function setUp():void
     {
@@ -57,6 +57,8 @@ class CreateUserActionTest extends FunctionalTestBase
         $this->prepareDataBase();
         $this->getAuthenticatedRootClient();
 
+        /* @var InMemoryTransport $transport */
+        $transport = $this->getContainer()->get('messenger.transport.async');
 
         $payload = [
             'email' => 'brian@api.com',
@@ -73,6 +75,8 @@ class CreateUserActionTest extends FunctionalTestBase
             [],
             \json_encode($payload)
         );
+
+        $this->assertCount(1, $transport->getSent());
 
         $response = self::$authenticatedRootClient->getResponse();
         self::assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
