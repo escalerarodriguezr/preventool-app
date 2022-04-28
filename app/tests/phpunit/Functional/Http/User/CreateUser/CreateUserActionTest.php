@@ -13,6 +13,7 @@ class CreateUserActionTest extends FunctionalTestBase
 {
     private const ENDPOINT = '/api/v1/user';
 
+
     public function setUp():void
     {
         parent::setUp();
