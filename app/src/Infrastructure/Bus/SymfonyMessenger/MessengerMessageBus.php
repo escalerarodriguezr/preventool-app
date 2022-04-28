@@ -6,6 +6,7 @@ namespace Preventool\Infrastructure\Bus\SymfonyMessenger;
 
 use Preventool\Domain\Shared\Bus\Message\Message;
 use Preventool\Domain\Shared\Bus\Message\MessageBus;
+use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpStamp;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class MessengerMessageBus implements MessageBus
@@ -15,9 +16,9 @@ final class MessengerMessageBus implements MessageBus
     {
     }
 
-    public function dispatch(Message $message): void
+    public function dispatch(Message $message, string $queue): void
     {
-        $this->messageBus->dispatch($message);
+        $this->messageBus->dispatch($message,[new AmqpStamp($queue)]);
     }
 
 

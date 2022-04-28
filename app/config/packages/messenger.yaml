@@ -1,7 +1,12 @@
 framework:
     messenger:
-        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
-        # failure_transport: failed
+        serializer:
+            default_serializer: messenger.transport.symfony_serializer
+            symfony_serializer:
+                format: json
+                context: { }
+
+        failure_transport: failed
         default_bus: command.bus
 
         buses:
@@ -14,15 +19,23 @@ framework:
             message.bus: ~
 
         transports:
-            # https://symfony.com/doc/current/messenger.html#transport-configuration
-            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
-            # failed: 'doctrine://default?queue_name=failed'
+             failed: 'doctrine://default?queue_name=failed'
              sync: 'sync://'
+             async:
+                 dsn: '%env(string:MESSENGER_TRANSPORT_DSN)%'
+                 options:
+                     vhost: '%env(string:MESSENGER_VHOST)%'
+                     exchange:
+                         name: '%env(string:MESSENGER_EXCHANGE)%'
+                         type: direct
+                     queues:
+                         main_queue:
+                             binding_keys: [ main_queue ]
 
         routing:
             'Preventool\Domain\Shared\Bus\Command\Command': sync
             'Preventool\Domain\Shared\Bus\Query\Query': sync
             'Preventool\Domain\Shared\Bus\Event\Event': sync
-            'Preventool\Domain\Shared\Bus\Message\Message': sync
+            'Preventool\Domain\Shared\Bus\Message\Message': async
 
 
