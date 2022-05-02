@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace Preventool\Application\User\CommandHandler;
 
 use Preventool\Application\User\Command\CreateUser;
+use Preventool\Application\User\Event\UserCreated;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
+use Preventool\Domain\Shared\Bus\Event\EventBus;
 use Preventool\Domain\Shared\Service\IdentifierGenerator\IdentifierGenerator;
 use Preventool\Domain\Shared\Value\Email;
 use Preventool\Domain\Shared\Value\NonEmptyString;
@@ -23,12 +25,13 @@ class CreateUserHandler implements CommandHandler
         private UserRepository $userRepository,
         private UserPasswordHasherInterface $passwordHasher,
         private IdentifierGenerator $identifierGenerator,
-        private CreateUserRules $createUserRules
+        private CreateUserRules $createUserRules,
+        private EventBus $eventBus
     )
     {
     }
 
-    public function __invoke(CreateUser $createUser)
+    public function __invoke(CreateUser $createUser):void
     {
 
         $actionUser = $this->userRepository->find($createUser->getActionUserId());
@@ -56,6 +59,13 @@ class CreateUserHandler implements CommandHandler
         }
 
         $this->userRepository->save($user);
+
+        $this->eventBus->dispatch(new UserCreated(
+            $user->getUuid(),
+            $user->getEmail()->getValue(),
+            $user->getName()->getValue(),
+            $user->getLastName()->getValue()
+        ));
     }
 
 }

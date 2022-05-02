@@ -13,6 +13,7 @@ services:
         bind:
             $mediaPath: '%env(resolve:SUBDOMAIN)%'
             $projectDigitalOceanStoragePath: '%env(resolve:PROJECT_PATH)%'
+            $defaultSender: '%env(resolve:MAILER_DEFAULT_SENDER)%'
 
     App\Controller\:
         resource: '../web/Controller/'
@@ -38,6 +39,9 @@ services:
         Preventool\Domain\Shared\Bus\Event\EventHandler:
             tags:
                 - { name: messenger.message_handler, bus: event.bus }
+        Preventool\Domain\Shared\Bus\Message\MessageHandler:
+            tags:
+                - { name: messenger.message_handler, bus: message.bus }
 
     #Security Listener
     Preventool\Infrastructure\Security\Listener\JWTCreatedListener:
@@ -64,6 +68,11 @@ services:
               credentials:
                   key: '%env(resolve:KEY)%'
                   secret: '%env(resolve:SECRET)%'
+
+    #EventHandler
+    Preventool\Application\User\EventHandler\UserCreatedMessageHandler:
+        tags: [ { name: messenger.message_handler , priority: 10 } ]
+
 
     #Repository
     Preventool\Domain\Demo\Repository\DemoRepository:

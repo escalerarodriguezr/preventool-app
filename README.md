@@ -8,6 +8,7 @@ Implemented with Symfony 5.4 and includes `Docker configuration`.
 - It contains Open API v3 documentation
 ![Endpoints](./doc/endpoints.png)
 - Storage in DigitalOcean Spaces that are compatible with the AWS S3
+- Asynchronous event integration with RabbitMQ
 - Unit tests
 - Integration tests
 - Functional tests to cover the user endpoints use cases
