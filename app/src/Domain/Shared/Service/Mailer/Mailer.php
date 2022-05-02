@@ -5,5 +5,5 @@ namespace Preventool\Domain\Shared\Service\Mailer;
 
 interface Mailer
 {
-    public function send(string $receiver, string $template, array $payload, ?string $sender):void;
+    public function send(string $receiver, string $template, array $payload, ?string $sender=null):void;
 }
