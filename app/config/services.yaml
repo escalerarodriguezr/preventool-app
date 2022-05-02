@@ -13,6 +13,7 @@ services:
         bind:
             $mediaPath: '%env(resolve:SUBDOMAIN)%'
             $projectDigitalOceanStoragePath: '%env(resolve:PROJECT_PATH)%'
+            $defaultSender: '%env(resolve:MAILER_DEFAULT_SENDER)%'
 
     App\Controller\:
         resource: '../web/Controller/'

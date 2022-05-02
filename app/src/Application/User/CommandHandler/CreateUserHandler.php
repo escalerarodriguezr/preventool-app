@@ -31,7 +31,7 @@ class CreateUserHandler implements CommandHandler
     {
     }
 
-    public function __invoke(CreateUser $createUser)
+    public function __invoke(CreateUser $createUser):void
     {
 
         $actionUser = $this->userRepository->find($createUser->getActionUserId());

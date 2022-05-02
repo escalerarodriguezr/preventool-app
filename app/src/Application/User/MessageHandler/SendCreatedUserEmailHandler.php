@@ -5,21 +5,28 @@ namespace Preventool\Application\User\MessageHandler;
 
 use Preventool\Application\User\Message\SendCreatedUserEmail;
 use Preventool\Domain\Shared\Bus\Message\MessageHandler;
-use Psr\Log\LoggerInterface;
+use Preventool\Domain\Shared\Service\Mailer\Mailer;
+use Preventool\Infrastructure\Mailer\TwigTemplate;
 
 class SendCreatedUserEmailHandler implements MessageHandler
 {
 
     public function __construct(
-        private LoggerInterface $logger
+        private Mailer $mailer
     )
     {
     }
 
     public function __invoke(SendCreatedUserEmail $message)
     {
-        $this->logger->info(sprintf("Send email to: %s", $message->getEmail()));
+        $payload = [
+            'email' => $message->getEmail()
+        ];
+
+        $this->mailer->send(
+            $message->getEmail(),
+            TwigTemplate::REGISTER_USER,
+            $payload
+        );
     }
-
-
 }

@@ -8,6 +8,7 @@ use Preventool\Domain\Shared\Bus\Event\EventHandler;
 use Preventool\Domain\Shared\Bus\Message\MessageBus;
 use Preventool\Domain\Shared\Bus\Message\RoutingKey;
 
+
 class UserCreatedMessageHandler implements EventHandler
 {
 
@@ -24,5 +25,4 @@ class UserCreatedMessageHandler implements EventHandler
             RoutingKey::PREVENTOOL_PREVENTOOL_QUEUE
         );
     }
-    
 }
