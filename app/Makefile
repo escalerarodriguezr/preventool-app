@@ -65,3 +65,7 @@ all-tests: ## Runs Unit and Functional tests
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} bin/phpunit
 create-root-user: ## Runs Unit and Functional tests
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} bin/console app:create-root-user
+
+# Supervisor
+supervisor: ## Run supervisor with defined config in docker/php/supervisor.conf
+	U_ID=${UID} docker exec -dt -uroot ${DOCKER_BE} supervisord

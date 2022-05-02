@@ -25,6 +25,7 @@ Implemented with Symfony 5.4 and includes `Docker configuration`.
 - `make create-root-user` after installing create the first user with root role
 - `make all-tests` to run the test suite
 - `make ssh-be` to access the PHP container bash
+- `make supervisor` Run supervisor with defined config in docker/php/supervisord.conf
 
 ## Usage /doc
 - `make build` to build the docker environment
