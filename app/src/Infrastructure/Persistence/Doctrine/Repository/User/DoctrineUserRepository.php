@@ -23,11 +23,6 @@ class DoctrineUserRepository extends MysqlDoctrineBaseRepository implements User
         return User::class;
     }
 
-    public function entityManager(): EntityManager | ObjectManager
-    {
-        return $this->getEntityManager();
-    }
-
     public function save(User $user): void
     {
         try{

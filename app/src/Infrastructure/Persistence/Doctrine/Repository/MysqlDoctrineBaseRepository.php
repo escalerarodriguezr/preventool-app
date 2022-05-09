@@ -44,7 +44,7 @@ abstract class MysqlDoctrineBaseRepository
     protected function removeEntity(object $entity): void
     {
         $this->getEntityManager()->remove($entity);
-//        $this->getEntityManager()->flush();
+        $this->getEntityManager()->flush();
     }
 
 }
