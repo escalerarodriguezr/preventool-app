@@ -11,6 +11,7 @@ class GetUserByUuidQueryView
     private string $role;
     private string $name;
     private string $lastName;
+    private ?string $avatar;
     private bool $isEmailConfirmed;
     private bool $isActive;
     private ?string $creatorUuid;
@@ -130,6 +131,19 @@ class GetUserByUuidQueryView
         return $this;
     }
 
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+
+
+
     public function toArray(): array
     {
         return [
@@ -138,6 +152,7 @@ class GetUserByUuidQueryView
             'email' => $this->email,
             'name' => $this->name,
             'lastName' => $this->lastName,
+            'avatar' => $this->avatar,
             'role' => $this->role,
             'isActive' => $this->isActive,
             'isEmailConfirmed' => $this->isEmailConfirmed,
