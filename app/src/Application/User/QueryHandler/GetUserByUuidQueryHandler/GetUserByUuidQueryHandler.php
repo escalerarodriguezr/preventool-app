@@ -26,6 +26,7 @@ class GetUserByUuidQueryHandler implements QueryHandler
         ->setUuid($userEntity->getUuid())
         ->setName($userEntity->getName()->getValue())
         ->setLastName($userEntity->getLastName()->getValue())
+        ->setAvatar($userEntity->getAvatarResource())
         ->setEmail($userEntity->getEmail()->getValue())
         ->setRole($userEntity->getRole()->getValue())
         ->setCreatorUuid(!empty($userEntity->getCreator()) ? $userEntity->getCreator()->getUuid() : null)

@@ -34,6 +34,10 @@ properties:
     type: boolean
     example: true
     description: User account has email confirmed
+  avatar:
+    type: string
+    example: "projects/preventool-dev/avatar/0d59e818-7632-4a73-b501-0655a9811351/640d9f1a76617208736c7638239f53967518b5c8.png"
+    description: Public path
 
   createdOn:
     type: string

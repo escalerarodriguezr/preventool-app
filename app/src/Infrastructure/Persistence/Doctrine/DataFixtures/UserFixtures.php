@@ -41,6 +41,7 @@ class UserFixtures extends Fixture implements FixtureInterface
     const FRODO_EMAIL = 'frodo@api.com';
     const FRODO_PASSWORD = 'frodo-password';
     const FRODO_ROLE = User::ROLE_ADMIN;
+    const FRODO_AVATAR = 'projects/preventool-dev/avatar/0d59e818-7632-4a73-b501-0655a9811351/640d9f1a76617208736c7638239f53967518b5c8.png';
 
     const FRODO_2_NAME = 'Frodo_2';
     const FRODO_2_LASTNAME = 'Bolson_2';
@@ -73,7 +74,8 @@ class UserFixtures extends Fixture implements FixtureInterface
             self::FRODO_ROLE,
             self::FRODO_UUID,
             self::FRODO_NAME,
-            self::FRODO_LASTNAME
+            self::FRODO_LASTNAME,
+            self::FRODO_AVATAR
         );
         $frodo->setCreator($root);
         $manager->persist($frodo);
@@ -102,7 +104,15 @@ class UserFixtures extends Fixture implements FixtureInterface
         $manager->flush();
     }
 
-    private function createUser(string $email, string $password, string $role, string $uuid, string $name, string $lastName): User
+    private function createUser(
+        string $email,
+        string $password,
+        string $role,
+        string $uuid,
+        string $name,
+        string $lastName,
+        string $avatar=null
+    ): User
     {
         $user = new User(
             $uuid,
@@ -119,6 +129,7 @@ class UserFixtures extends Fixture implements FixtureInterface
         $user->setPassword($hashedPassword);
         $user->setIsActive(true);
         $user->setIsEmailConfirmed(true);
+        $user->setAvatarResource($avatar);
         return $user;
     }
 

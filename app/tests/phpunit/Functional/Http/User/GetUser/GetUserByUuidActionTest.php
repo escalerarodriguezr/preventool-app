@@ -43,6 +43,7 @@ class GetUserByUuidActionTest extends FunctionalTestBase
         self::assertEquals(UserFixtures::FRODO_NAME, $responseData['name']);
         self::assertEquals(UserFixtures::FRODO_LASTNAME, $responseData['lastName']);
         self::assertEquals(UserFixtures::FRODO_ROLE, $responseData['role']);
+        self::assertEquals(UserFixtures::FRODO_AVATAR, $responseData['avatar']);
         self::assertEquals(true, $responseData['isActive']);
         self::assertEquals(true, $responseData['isEmailConfirmed']);
         self::assertArrayHasKey('id',$responseData);
