@@ -177,6 +177,18 @@
                 required: false
                 description: User email
                 example: 'cesar@iniesta.com'
+              role:
+                type: string
+                enum:
+                  - ROLE_ADMIN
+                required: false
+                description: User Role
+                example: 'ROLE_ADMIN'
+              isActive:
+                type: boolean
+                required: false
+                description: If user is account is active
+                example: false
 
     style: simple
     responses:
