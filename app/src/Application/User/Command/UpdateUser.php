@@ -13,8 +13,19 @@ class UpdateUser implements Command
     private ?string $name;
     private ?string $lastName;
     private ?string $email;
+    private ?string $role;
+    private ?bool $isActive;
 
-    public function __construct(string $uuid, int $actionUserId, string $actionUserRole, ?string $name, ?string $lastName, ?string $email)
+    public function __construct(
+        string $uuid,
+        int $actionUserId,
+        string $actionUserRole,
+        ?string $name,
+        ?string $lastName,
+        ?string $email,
+        ?string $role,
+        ?bool $isActive
+    )
     {
         $this->uuid = $uuid;
         $this->actionUserId = $actionUserId;
@@ -22,6 +33,8 @@ class UpdateUser implements Command
         $this->name = $name;
         $this->lastName = $lastName;
         $this->email = $email;
+        $this->role = $role;
+        $this->isActive = $isActive;
     }
 
     public function getUuid(): string
@@ -54,5 +67,14 @@ class UpdateUser implements Command
         return $this->email;
     }
 
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
 
 }

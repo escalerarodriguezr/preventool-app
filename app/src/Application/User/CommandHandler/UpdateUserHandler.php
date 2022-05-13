@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Preventool\Application\User\CommandHandler;
 
-use mysql_xdevapi\Exception;
 use Preventool\Application\User\Command\UpdateUser;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
 use Preventool\Domain\Shared\Value\Email;
 use Preventool\Domain\Shared\Value\NonEmptyString;
 use Preventool\Domain\User\Model\Service\UpdateUserRules\UpdateUserRules;
+use Preventool\Domain\User\Model\Value\UserRole;
 use Preventool\Domain\User\Repository\UserRepository;
 
 class UpdateUserHandler implements CommandHandler
@@ -17,7 +17,6 @@ class UpdateUserHandler implements CommandHandler
     public function __construct(
         private UserRepository $userRepository,
         private UpdateUserRules $updateUserRules
-
     )
     {
     }
@@ -29,6 +28,7 @@ class UpdateUserHandler implements CommandHandler
         $user = $this->userRepository->findByUuid($updateUser->getUuid());
         $this->updateUserRules->satisfiedBy($actionUser,$user);
 
+
         if( !empty($updateUser->getName()) ){
             $user->setName(new NonEmptyString($updateUser->getName()));
         }
@@ -39,6 +39,14 @@ class UpdateUserHandler implements CommandHandler
 
         if( !empty($updateUser->getEmail()) ){
             $user->setEmail(new Email($updateUser->getEmail()));
+        }
+
+        if( $updateUser->getIsActive() !== null ){;
+            $user->setIsActive($updateUser->getIsActive());
+        }
+
+        if( !empty($updateUser->getRole()) ){
+            $user->setRole(new UserRole($updateUser->getRole()));
         }
 
         $this->userRepository->save($user);

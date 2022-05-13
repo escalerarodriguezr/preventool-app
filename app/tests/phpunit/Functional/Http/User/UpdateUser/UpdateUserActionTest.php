@@ -215,7 +215,7 @@ class UpdateUserActionTest extends FunctionalTestBase
         self::assertEquals(Response::HTTP_CONFLICT,$response->getStatusCode());
     }
 
-    public function testUpdateAdminUserIsActiveAndRoleByRootUserRoleSuccessResponse()
+    public function testUpdateAdminUserFieldsIsActiveAndRoleByRootUserRoleSuccessResponse()
     {
 
         $this->prepareDataBase();
@@ -223,7 +223,7 @@ class UpdateUserActionTest extends FunctionalTestBase
 
         $payload = [
             UpdateUserRequest::IS_ACTIVE => false,
-            UpdateUserRequest::ROLE => User::ROLE_ADMIN
+            UpdateUserRequest::ROLE => User::ROLE_ROOT
         ];
 
         self::$authenticatedRootClient->request(
@@ -236,7 +236,4 @@ class UpdateUserActionTest extends FunctionalTestBase
         $response = self::$authenticatedRootClient->getResponse();
         self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
     }
-
-
-
 }
