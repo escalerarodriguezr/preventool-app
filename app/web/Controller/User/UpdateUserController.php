@@ -25,21 +25,18 @@ class UpdateUserController
     public function __invoke(string $uuid, UpdateUserRequest $updateUserRequest):Response
     {
         $this->uuidValidator->validate($uuid);
-
         $command = new UpdateUser(
             $uuid,
             $this->httpActionUserService->getUserId(),
             $this->httpActionUserService->getSessionUser()->getRole()->getValue(),
-            $updateUserRequest->getName() ?? null,
-            $updateUserRequest->getLastName() ?? null,
-            $updateUserRequest->getEmail() ?? null
+            $updateUserRequest->getName(),
+            $updateUserRequest->getLastName(),
+            $updateUserRequest->getEmail(),
+            $updateUserRequest->getRole(),
+            $updateUserRequest->getIsActive()
         );
-
-            $this->commandBus->dispatch($command);
-
+        $this->commandBus->dispatch($command);
         return new JsonResponse(null,Response::HTTP_OK);
-
     }
-
 
 }

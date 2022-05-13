@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHPUnit\Tests\Functional\Http\User\UpdateUser;
 
 use PHPUnit\Tests\Functional\Http\FunctionalTestBase;
+use Preventool\Domain\User\Model\Entity\User;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
 use Preventool\Infrastructure\Ui\Http\Request\DTO\User\UpdateUserRequest;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +34,7 @@ class UpdateUserActionTest extends FunctionalTestBase
         $payload = [
             UpdateUserRequest::NAME => 'Kawhi',
             UpdateUserRequest::LASTNAME => 'Leonard',
-            UpdateUserRequest::EMAIL => 'leonard@leonard.com',
+            UpdateUserRequest::EMAIL => 'leonard@leonard.com'
         ];
 
         self::$authenticatedRootClient->request(
@@ -212,5 +213,27 @@ class UpdateUserActionTest extends FunctionalTestBase
 
         $response = self::$authenticatedAdminFrodoClient->getResponse();
         self::assertEquals(Response::HTTP_CONFLICT,$response->getStatusCode());
+    }
+
+    public function testUpdateAdminUserFieldsIsActiveAndRoleByRootUserRoleSuccessResponse()
+    {
+
+        $this->prepareDataBase();
+        $this->getAuthenticatedRootClient();
+
+        $payload = [
+            UpdateUserRequest::IS_ACTIVE => false,
+            UpdateUserRequest::ROLE => User::ROLE_ROOT
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_PUT,
+            sprintf('%s/%s',self::ENDPOINT,UserFixtures::FRODO_UUID),
+            [],[],[],
+            \json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
     }
 }
