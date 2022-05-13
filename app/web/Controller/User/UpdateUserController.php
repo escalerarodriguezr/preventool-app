@@ -24,6 +24,8 @@ class UpdateUserController
 
     public function __invoke(string $uuid, UpdateUserRequest $updateUserRequest):Response
     {
+
+        dd($updateUserRequest);
         $this->uuidValidator->validate($uuid);
 
         $command = new UpdateUser(
