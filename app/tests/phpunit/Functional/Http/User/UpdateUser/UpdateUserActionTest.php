@@ -236,4 +236,24 @@ class UpdateUserActionTest extends FunctionalTestBase
         $response = self::$authenticatedRootClient->getResponse();
         self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
     }
+
+    public function testCanNotDeactivateItselfActionUserActionNotAllowedExceptionResponse()
+    {
+        $this->prepareDataBase();
+        $this->getAuthenticatedAdminFrodoClient();
+
+        $payload = [
+            UpdateUserRequest::IS_ACTIVE => false,
+        ];
+
+        self::$authenticatedAdminFrodoClient->request(
+            Request::METHOD_PUT,
+            sprintf('%s/%s',self::ENDPOINT,UserFixtures::FRODO_UUID),
+            [],[],[],
+            \json_encode($payload)
+        );
+
+        $response = self::$authenticatedAdminFrodoClient->getResponse();
+        self::assertEquals(Response::HTTP_CONFLICT,$response->getStatusCode());
+    }
 }
