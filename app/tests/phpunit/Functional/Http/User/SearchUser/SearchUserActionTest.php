@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace PHPUnit\Tests\Functional\Http\User\SearchUser;
 
+use DateInterval;
+use DateTimeInterface;
 use PHPUnit\Tests\Functional\Http\FunctionalTestBase;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
 use Symfony\Component\HttpFoundation\Request;
@@ -206,5 +208,65 @@ class SearchUserActionTest extends FunctionalTestBase
         $responseData = \json_decode($response->getContent(), true);
 
         self::assertEquals(0,$responseData['total']);
+    }
+
+
+    public function testSearchUserFilterByCreatedOnFromExpectedResults()
+    {
+        $createdOn = new \DateTime();
+        $this->prepareDataBase();
+        $this->getAuthenticatedRootClient();
+        $queryParams = [
+            'filterByCreatedOnFrom' => $createdOn->format(DateTimeInterface::RFC3339),
+            'pageSize' => 50,
+            'currentPage' => 1,
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_GET,
+            self::ENDPOINT,
+            $queryParams
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        $responseData = \json_decode($response->getContent(), true);
+
+        self::assertArrayHasKey('total', $responseData);
+        self::assertArrayHasKey('pages', $responseData);
+        self::assertArrayHasKey('currentPage', $responseData);
+        self::assertArrayHasKey('items', $responseData);
+        $users = $responseData['items'];
+        self::assertIsArray($users);
+        self::assertGreaterThan(0,count($users));
+    }
+
+    public function testSearchUserFilterByCreatedOnFromZeroExpectedResults()
+    {
+
+        $this->prepareDataBase();
+        $this->getAuthenticatedRootClient();
+        $createdOn = (new \DateTime())->add(new DateInterval('PT10S'));
+        $queryParams = [
+            'filterByCreatedOnFrom' => $createdOn->format(DateTimeInterface::RFC3339),
+            'pageSize' => 50,
+            'currentPage' => 1,
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_GET,
+            self::ENDPOINT,
+            $queryParams
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        $responseData = \json_decode($response->getContent(), true);
+
+        self::assertArrayHasKey('total', $responseData);
+        self::assertArrayHasKey('pages', $responseData);
+        self::assertArrayHasKey('currentPage', $responseData);
+        self::assertArrayHasKey('items', $responseData);
+        $users = $responseData['items'];
+        self::assertIsArray($users);
+        self::assertEquals(0,count($users));
     }
 }

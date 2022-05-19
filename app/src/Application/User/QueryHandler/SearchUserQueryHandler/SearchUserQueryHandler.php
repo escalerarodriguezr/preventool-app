@@ -23,7 +23,8 @@ class SearchUserQueryHandler implements QueryHandler
         $filter = new UserFilter(
             $query->getFilterByUuid(),
             $query->getFilterByEmail(),
-            $query->getFilterByIsActive()
+            $query->getFilterByIsActive(),
+            $query->getFilterByCreatedOnFrom()
         );
 
         $queryCondition = (new QueryCondition())
