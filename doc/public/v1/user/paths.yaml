@@ -81,6 +81,14 @@
         schema:
           type: boolean
         description: Filter By User Is Active
+      - name: filterByCreatedOnFrom
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by User CreatedOn
+        example: "2021-10-30T19:42:37+00:00"
+
     responses:
       '200':
         description: Successful operation
