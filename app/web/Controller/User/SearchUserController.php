@@ -32,6 +32,7 @@ class SearchUserController
             ->setFilterByEmail($request->getFilterByEmail())
             ->setFilterByUuid($request->getFilterByUuid())
             ->setFilterByIsActive($request->getFilterByIsActive())
+            ->setFilterByCreatedOnFrom($request->getFilterByCreatedOnFrom())
         );
 
         return new JsonResponse($response->toArray(),Response::HTTP_OK);

@@ -3,10 +3,8 @@
 namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\User;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Doctrine\Persistence\ObjectManager;
 use Preventool\Domain\Shared\Repository\QueryCondition\QueryCondition;
 use Preventool\Domain\Shared\Repository\View\PaginatedQueryView;
 use Preventool\Domain\User\Model\Entity\User;
@@ -105,7 +103,14 @@ class DoctrineUserRepository extends MysqlDoctrineBaseRepository implements User
             )
                 ->setParameter(':active', $filter->getFilterByIsActive());
         }
+
+        if( !empty($filter->getFilterByCreatedOnFrom()) ){
+            $queryBuilder->andWhere
+            (
+                $queryBuilder->expr()->gte('u.createdOn', ':createdOnFrom')
+            )
+                ->setParameter(':createdOnFrom', $filter->getFilterByCreatedOnFrom());
+        }
         return $queryBuilder;
     }
-
 }

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Preventool\Application\User\Query;
 
+use Aws\signer\Exception\signerException;
 use Preventool\Domain\Shared\Bus\Query\Query;
 
 class SearchUserQuery implements Query
@@ -15,6 +16,7 @@ class SearchUserQuery implements Query
     private ?string $filterByUuid;
     private ?string $filterByEmail;
     private ?bool $filterByIsActive;
+    private ?string $filterByCreatedOnFrom;
 
     public function __construct()
     {
@@ -95,5 +97,17 @@ class SearchUserQuery implements Query
         $this->filterByIsActive = $filterByIsActive;
         return $this;
     }
+
+    public function getFilterByCreatedOnFrom(): ?string
+    {
+        return $this->filterByCreatedOnFrom;
+    }
+
+    public function setFilterByCreatedOnFrom(?string $filterByCreatedOnFrom): self
+    {
+        $this->filterByCreatedOnFrom = $filterByCreatedOnFrom;
+        return $this;
+    }
+
 
 }
