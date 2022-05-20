@@ -86,8 +86,15 @@
         required: false
         schema:
           type: string
-        description: Filter by User CreatedOn
+        description: Filter by User CreatedOn From
         example: "2021-10-30T19:42:37+00:00"
+      - name: filterByCreatedOnTo
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by User CreatedOn To
+        example: "2022-10-30T19:42:37+00:00"
 
     responses:
       '200':
