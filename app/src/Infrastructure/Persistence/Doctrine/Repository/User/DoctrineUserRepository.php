@@ -111,6 +111,15 @@ class DoctrineUserRepository extends MysqlDoctrineBaseRepository implements User
             )
                 ->setParameter(':createdOnFrom', $filter->getFilterByCreatedOnFrom());
         }
+
+        if( !empty($filter->getFilterByCreatedOnTo()) ){
+            $queryBuilder->andWhere
+            (
+                $queryBuilder->expr()->lte('u.createdOn', ':createdOnTo')
+            )
+                ->setParameter(':createdOnTo', $filter->getFilterByCreatedOnTo());
+        }
+
         return $queryBuilder;
     }
 }

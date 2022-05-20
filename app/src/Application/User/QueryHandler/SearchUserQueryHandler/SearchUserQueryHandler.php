@@ -11,7 +11,6 @@ use Preventool\Domain\User\Repository\UserRepository;
 class SearchUserQueryHandler implements QueryHandler
 {
 
-
     public function __construct(
         private UserRepository $userRepository
     )
@@ -24,7 +23,8 @@ class SearchUserQueryHandler implements QueryHandler
             $query->getFilterByUuid(),
             $query->getFilterByEmail(),
             $query->getFilterByIsActive(),
-            $query->getFilterByCreatedOnFrom()
+            $query->getFilterByCreatedOnFrom(),
+            $query->getFilterByCreatedOnTo()
         );
 
         $queryCondition = (new QueryCondition())

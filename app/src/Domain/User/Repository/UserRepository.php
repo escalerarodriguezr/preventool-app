@@ -2,8 +2,6 @@
 
 namespace Preventool\Domain\User\Repository;
 
-use Doctrine\ORM\EntityManager;
-use Doctrine\Persistence\ObjectManager;
 use Preventool\Domain\Shared\Repository\QueryCondition\QueryCondition;
 use Preventool\Domain\Shared\Repository\View\PaginatedQueryView;
 use Preventool\Domain\User\Model\Entity\User;

@@ -12,6 +12,7 @@ class SearchUserRequest implements RequestDTO
     private ?string $filterByEmail;
     private ?bool $filterByIsActive;
     private ?string $filterByCreatedOnFrom;
+    private ?string $filterByCreatedOnTo;
 
     public function __construct(Request $request)
     {
@@ -25,8 +26,8 @@ class SearchUserRequest implements RequestDTO
         if ($request->query->get('filterByIsActive') == "false") {
             $this->filterByIsActive = false;
         }
-
         $this->filterByCreatedOnFrom = $request->query->get('filterByCreatedOnFrom') ?? null;
+        $this->filterByCreatedOnTo = $request->query->get('filterByCreatedOnTo') ?? null;
     }
 
     public function getFilterByUuid(): ?string
@@ -47,6 +48,11 @@ class SearchUserRequest implements RequestDTO
     public function getFilterByCreatedOnFrom(): ?string
     {
         return $this->filterByCreatedOnFrom;
+    }
+
+    public function getFilterByCreatedOnTo(): ?string
+    {
+        return $this->filterByCreatedOnTo;
     }
 
 }

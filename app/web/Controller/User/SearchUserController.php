@@ -23,7 +23,6 @@ class SearchUserController
         QueryConditionRequest $queryConditionsRequest
     ):Response
     {
-
         $response = $this->queryBus->handle((new SearchUserQuery())
             ->setCurrentPage($queryConditionsRequest->getCurrentPage())
             ->setPageSize($queryConditionsRequest->getPageSize())
@@ -33,6 +32,7 @@ class SearchUserController
             ->setFilterByUuid($request->getFilterByUuid())
             ->setFilterByIsActive($request->getFilterByIsActive())
             ->setFilterByCreatedOnFrom($request->getFilterByCreatedOnFrom())
+            ->setFilterByCreatedOnTo($request->getFilterByCreatedOnTo())
         );
 
         return new JsonResponse($response->toArray(),Response::HTTP_OK);
