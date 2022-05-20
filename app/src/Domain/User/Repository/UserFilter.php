@@ -11,7 +11,8 @@ class UserFilter
         private ?string $filterByUuid = null,
         private ?string  $filterByEmail = null,
         private ?bool $filterByIsActive = null,
-        private ?string $filterByCreatedOnFrom = null
+        private ?string $filterByCreatedOnFrom = null,
+        private ?string $filterByCreatedOnTo = null
     )
     {
 
@@ -37,9 +38,20 @@ class UserFilter
         if(empty($this->filterByCreatedOnFrom)){
             return null;
         }
-
         try{
             return (new \DateTime($this->filterByCreatedOnFrom))->setTimezone(new DateTimeZone("UTC"));
+        }catch (\Exception){
+            return null;
+        }
+    }
+
+    public function getFilterByCreatedOnTo(): ?\DateTime
+    {
+        if(empty($this->filterByCreatedOnTo)){
+            return null;
+        }
+        try{
+            return (new \DateTime($this->filterByCreatedOnTo))->setTimezone(new DateTimeZone("UTC"));
         }catch (\Exception){
             return null;
         }

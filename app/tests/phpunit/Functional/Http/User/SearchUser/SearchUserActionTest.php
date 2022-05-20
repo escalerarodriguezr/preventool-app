@@ -269,4 +269,62 @@ class SearchUserActionTest extends FunctionalTestBase
         self::assertIsArray($users);
         self::assertEquals(0,count($users));
     }
+
+    public function testSearchUserFilterByCreatedOnToExpectedResults()
+    {
+        $createdTo = new \DateTime('2100-10-30T19:42:37+00:00');
+        $this->prepareDataBase();
+        $this->getAuthenticatedRootClient();
+        $queryParams = [
+            'filterByCreatedOnTo' => $createdTo->format(DateTimeInterface::RFC3339),
+            'pageSize' => 50,
+            'currentPage' => 1,
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_GET,
+            self::ENDPOINT,
+            $queryParams
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        $responseData = \json_decode($response->getContent(), true);
+
+        self::assertArrayHasKey('total', $responseData);
+        self::assertArrayHasKey('pages', $responseData);
+        self::assertArrayHasKey('currentPage', $responseData);
+        self::assertArrayHasKey('items', $responseData);
+        $users = $responseData['items'];
+        self::assertIsArray($users);
+        self::assertGreaterThan(0,count($users));
+    }
+
+    public function testSearchUserFilterByCreatedOnToExpectedZeroResults()
+    {
+        $createdTo = new \DateTime('2019-10-30T19:42:37+00:00');
+        $this->prepareDataBase();
+        $this->getAuthenticatedRootClient();
+        $queryParams = [
+            'filterByCreatedOnTo' => $createdTo->format(DateTimeInterface::RFC3339),
+            'pageSize' => 50,
+            'currentPage' => 1,
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_GET,
+            self::ENDPOINT,
+            $queryParams
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        $responseData = \json_decode($response->getContent(), true);
+
+        self::assertArrayHasKey('total', $responseData);
+        self::assertArrayHasKey('pages', $responseData);
+        self::assertArrayHasKey('currentPage', $responseData);
+        self::assertArrayHasKey('items', $responseData);
+        $users = $responseData['items'];
+        self::assertIsArray($users);
+        self::assertEquals(0,count($users));
+    }
 }
