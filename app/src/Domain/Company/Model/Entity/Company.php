@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Preventool\Domain\Company\Model\Entity;
 
+use Preventool\Domain\Shared\Value\NonEmptyString;
+
 class Company
 {
     private ?int $id;
@@ -13,16 +15,16 @@ class Company
     private \DateTime $createdOn;
     private ?\DateTime $updatedOn;
 
-    /**
-     * @param string $uuid
-     * @param string $name
-     * @param string|null $legalDocument
-     * @param string|null $address
-     */
-    public function __construct(string $uuid, string $name, ?string $legalDocument=null, ?string $address=null)
+
+    public function __construct(
+        string $uuid,
+        NonEmptyString $name,
+        ?string $legalDocument=null,
+        ?string $address=null
+    )
     {
         $this->uuid = $uuid;
-        $this->name = $name;
+        $this->name = $name->getValue();
         $this->legalDocument = $legalDocument;
         $this->address = $address;
         $this->createdOn = new \DateTime();
@@ -44,14 +46,14 @@ class Company
         return $this->uuid;
     }
 
-    public function getName(): string
+    public function getName(): NonEmptyString
     {
-        return $this->name;
+        return new NonEmptyString($this->name);
     }
 
-    public function setName(string $name): void
+    public function setName(NonEmptyString $name): void
     {
-        $this->name = $name;
+        $this->name = $name->getValue();
     }
 
     public function getLegalDocument(): ?string
@@ -79,7 +81,6 @@ class Company
         return $this->createdOn;
     }
 
-
     public function setCreatedOn(\DateTime $createdOn): void
     {
         $this->createdOn = $createdOn;
@@ -89,7 +90,7 @@ class Company
     {
         return $this->updatedOn;
     }
-
+    
     public function setUpdatedOn(?\DateTime $updatedOn): void
     {
         $this->updatedOn = $updatedOn;
