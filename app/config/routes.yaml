@@ -32,6 +32,13 @@ api_search_user:
     controller: App\Controller\User\SearchUserController
     methods: [GET]
 
+#COMPANY ENDPOINTS
+api_get_company:
+    path: /api/v1/company
+    controller: App\Controller\Company\GetCompanyController
+    methods: [GET]
+
+#DEMO
 demo:
     path: /demo
     controller: App\Controller\DemoController

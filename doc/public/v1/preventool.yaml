@@ -19,6 +19,7 @@ paths:
   allOf:
     - $ref: './auth/paths.yaml'
     - $ref: './session/paths.yaml'
+    - $ref: './company/paths.yaml'
     - $ref: './user/paths.yaml'
 components:
   securitySchemes:
@@ -143,3 +144,5 @@ components:
       $ref: './user/schemas.yaml'
     session:
       $ref: './session/schemas.yaml'
+    company:
+      $ref: './company/schemas.yaml'
