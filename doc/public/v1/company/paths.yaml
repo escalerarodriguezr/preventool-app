@@ -1,0 +1,22 @@
+/api/v1/company:
+  get:
+    tags:
+      - Company
+    summary: Get Company
+    operationId: getCompany
+    security:
+      - bearerAuth: []
+    style: simple
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/company/CompanyView"
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"

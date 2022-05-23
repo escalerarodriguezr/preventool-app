@@ -1,0 +1,22 @@
+type: object
+properties:
+  companyId:
+    type: integer
+    example: 1
+    description: Unique Id for Company
+  companyUuid:
+    type: string
+    example: "02ad717b-1d7a-4f3d-8343-ff71d9341d7d"
+    description: Unique Public Uuid for Company
+  name:
+    type: string
+    example: "Preventool"
+    description: Company name
+  legalDocument:
+    type: string
+    example: "X734682378T"
+    description: Company Legal Document
+  address:
+    type: string
+    example: "Bajada a la Estación B-5"
+    description: Company Address
