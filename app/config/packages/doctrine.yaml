@@ -18,6 +18,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/User'
                 prefix: 'Preventool\Domain\User\Model\Entity'
                 alias: Preventool\Domain\User\Model\Entity
+            Preventool\Company:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Company'
+                prefix: 'Preventool\Domain\Company\Model\Entity'
+                alias: Preventool\Domain\Company\Model\Entity
 
 when@test:
     doctrine:
