@@ -27,5 +27,5 @@ class CompanyFixtures extends Fixture implements FixtureInterface
         $manager->persist($company);
         $manager->flush();
     }
-    
+
 }

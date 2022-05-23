@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\Company;
 
+use Doctrine\ORM\NoResultException;
 use Preventool\Domain\Company\Model\Entity\Company;
 use Preventool\Domain\Company\Model\Exception\CompanyAlreadyExistsException;
+use Preventool\Domain\Company\Model\Exception\CompanyNotFoundException;
 use Preventool\Domain\Company\Repository\CompanyRepository;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\MysqlDoctrineBaseRepository;
 
@@ -14,6 +16,7 @@ class DoctrineCompanyRepository extends MysqlDoctrineBaseRepository implements C
     {
         return Company::class;
     }
+
 
     public function save(Company $company): void
     {
@@ -27,4 +30,18 @@ class DoctrineCompanyRepository extends MysqlDoctrineBaseRepository implements C
 
         $this->saveEntity($company);
     }
+
+
+    public function findCompany(): Company
+    {
+        try{
+            return $this->objectRepository
+                ->createQueryBuilder('c')
+                ->getQuery()
+                ->getSingleResult();
+        }catch (NoResultException $exception){
+            throw CompanyNotFoundException::formFindCompany();
+        }
+    }
+
 }

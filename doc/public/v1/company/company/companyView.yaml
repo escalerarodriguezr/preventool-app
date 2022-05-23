@@ -1,10 +1,10 @@
 type: object
 properties:
-  companyId:
+  id:
     type: integer
     example: 1
     description: Unique Id for Company
-  companyUuid:
+  uuid:
     type: string
     example: "02ad717b-1d7a-4f3d-8343-ff71d9341d7d"
     description: Unique Public Uuid for Company
