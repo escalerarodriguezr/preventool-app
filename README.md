@@ -22,10 +22,13 @@ Implemented with Symfony 5.4 and includes `Docker configuration`.
 - `make generate-ssh-keys` to generate JWT certificates
 - `make migrate-database` to runs the migrations
 - `make migrate-database-tests` to runs the database-tests migrations
-- `make create-root-user` after installing create the first user with root role
 - `make all-tests` to run the test suite
 - `make ssh-be` to access the PHP container bash
 - `make supervisor` Run supervisor with defined config in docker/php/supervisord.conf
+
+## Usage /commands to generate the necessary initial installation data
+- `make create-root-user` after installing create the first user with root role
+- `make create-company` after installing create the company data
 
 ## Usage /doc
 - `make build` to build the docker environment
