@@ -27,7 +27,6 @@
     operationId: putCompany
     security:
       - bearerAuth: [ ]
-    parameters:
     requestBody:
       content:
         application/json:
