@@ -37,6 +37,10 @@ api_get_company:
     path: /api/v1/company
     controller: App\Controller\Company\GetCompanyController
     methods: [GET]
+api_put_company:
+    path: /api/v1/company
+    controller: App\Controller\Company\UpdateCompanyController
+    methods: [PUT]
 
 #DEMO
 demo:

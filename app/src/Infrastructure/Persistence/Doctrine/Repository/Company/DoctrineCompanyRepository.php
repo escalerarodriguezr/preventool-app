@@ -44,4 +44,9 @@ class DoctrineCompanyRepository extends MysqlDoctrineBaseRepository implements C
         }
     }
 
+    public function update(Company $company): void
+    {
+        $this->saveEntity($company);
+    }
+
 }
