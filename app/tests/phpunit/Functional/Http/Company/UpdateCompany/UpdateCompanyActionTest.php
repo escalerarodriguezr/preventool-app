@@ -37,7 +37,6 @@ class UpdateCompanyActionTest extends FunctionalTestBase
             UpdateCompanyRequest::NAME => "new company",
             UpdateCompanyRequest::LEGAL_DOCUMENT => "X99878787Z",
             UpdateCompanyRequest::ADDRESS => "New Address"
-
         ];
 
         self::$authenticatedRootClient->request(
@@ -51,5 +50,28 @@ class UpdateCompanyActionTest extends FunctionalTestBase
         self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
     }
 
+    public function testUpdateCompanyByAdminUserActionNotAllowedExceptionResponse():void
+    {
+        $this->prepareDataBase();
+        $this->getAuthenticatedAdminFrodoClient();
 
+        $payload = [
+            UpdateCompanyRequest::NAME => "new company",
+            UpdateCompanyRequest::LEGAL_DOCUMENT => "X99878787Z",
+            UpdateCompanyRequest::ADDRESS => "New Address"
+
+        ];
+
+        self::$authenticatedAdminFrodoClient->request(
+            Request::METHOD_PUT,
+            self::ENDPOINT,
+            [],[],[],
+            \json_encode($payload)
+        );
+
+        $response = self::$authenticatedAdminFrodoClient->getResponse();
+        self::assertEquals(Response::HTTP_CONFLICT,$response->getStatusCode());
+        $responseData = \json_decode($response->getContent(), true);
+        self::assertStringContainsString("ActionUserActionNotAllowedException", $responseData['class']);
+    }
 }
