@@ -24,13 +24,16 @@ class CreateOrganizationActionTest extends FunctionalTestBase
         ]);
     }
 
-    public function testCreateOrganizationRootActionUserSuccessRespose():void
+    public function testCreateOrganizationRootActionUserEmailBadRequestExceptionResponse():void
     {
         $this->prepareDatabase();
         $this->getAuthenticatedRootClient();
 
         $payload = [
-
+            'email' => 'info',
+            'name' => 'Setelsa',
+            'legalDocument' => '0000000X',
+            'address' => 'Setelsa example address'
         ];
 
         self::$authenticatedRootClient->request(
@@ -41,6 +44,53 @@ class CreateOrganizationActionTest extends FunctionalTestBase
         );
 
         $response = self::$authenticatedRootClient->getResponse();
+        self::assertEquals(Response::HTTP_BAD_REQUEST,$response->getStatusCode());
+    }
+
+    public function testCreateOrganizationRootActionUserNameBadRequestExceptionResponse():void
+    {
+        $this->prepareDatabase();
+        $this->getAuthenticatedRootClient();
+
+        $payload = [
+            'email' => 'info@info.com',
+            'name' => ' ',
+            'legalDocument' => '0000000X',
+            'address' => 'Setelsa example address'
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_POST,
+            self::ENDPOINT,
+            [],[],[],
+            json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        self::assertEquals(Response::HTTP_BAD_REQUEST,$response->getStatusCode());
+    }
+
+    public function testCreateOrganizationRootActionUserSuccessRespose():void
+    {
+        $this->prepareDatabase();
+        $this->getAuthenticatedRootClient();
+
+        $payload = [
+            'email' => 'info@organization.com',
+            'name' => 'Setelsa',
+            'legalDocument' => '0000000X',
+            'address' => 'Setelsa example address'
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_POST,
+            self::ENDPOINT,
+            [],[],[],
+            json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+
         self::assertEquals(Response::HTTP_CREATED,$response->getStatusCode());
 
     }
