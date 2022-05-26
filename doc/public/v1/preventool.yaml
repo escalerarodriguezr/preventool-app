@@ -15,12 +15,17 @@ tags:
     description: Shared Session Services
   - name: User
     description: User services
+  - name: Company
+    description: Company services
+  - name: Organization
+    description: Organization services
 paths:
   allOf:
     - $ref: './auth/paths.yaml'
     - $ref: './session/paths.yaml'
     - $ref: './company/paths.yaml'
     - $ref: './user/paths.yaml'
+    - $ref: './organization/paths.yaml'
 components:
   securitySchemes:
      bearerAuth: # arbitrary name for the security scheme
@@ -146,3 +151,5 @@ components:
       $ref: './session/schemas.yaml'
     company:
       $ref: './company/schemas.yaml'
+    organization:
+      $ref: './organization/schemas.yaml'
