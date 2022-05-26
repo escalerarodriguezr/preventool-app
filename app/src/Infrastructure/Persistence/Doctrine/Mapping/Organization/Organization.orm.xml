@@ -22,8 +22,7 @@
         <many-to-one field="updater" target-entity="Preventool\Domain\User\Model\Entity\User">
             <join-column name="updater_id" referenced-column-name="id" />
         </many-to-one>
-
-
+        
         <unique-constraints>
             <unique-constraint name="U_organization_email" columns="email"/>
             <unique-constraint name="U_organization_uuid" columns="uuid"/>
