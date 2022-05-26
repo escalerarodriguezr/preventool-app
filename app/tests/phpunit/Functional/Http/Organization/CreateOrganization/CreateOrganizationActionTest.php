@@ -90,7 +90,6 @@ class CreateOrganizationActionTest extends FunctionalTestBase
         );
 
         $response = self::$authenticatedRootClient->getResponse();
-
         self::assertEquals(Response::HTTP_CREATED,$response->getStatusCode());
 
     }
