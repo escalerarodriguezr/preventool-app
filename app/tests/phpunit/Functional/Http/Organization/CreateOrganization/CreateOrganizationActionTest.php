@@ -26,7 +26,7 @@ class CreateOrganizationActionTest extends FunctionalTestBase
         ]);
     }
 
-    public function testCreateOrganizationRootActionUserEmailBadRequestExceptionResponse():void
+    public function testCreateOrganizationByRootActionUserEmailBadRequestExceptionResponse():void
     {
         $this->prepareDatabase();
         $this->getAuthenticatedRootClient();
@@ -49,7 +49,7 @@ class CreateOrganizationActionTest extends FunctionalTestBase
         self::assertEquals(Response::HTTP_BAD_REQUEST,$response->getStatusCode());
     }
 
-    public function testCreateOrganizationRootActionUserNameBadRequestExceptionResponse():void
+    public function testCreateOrganizationByRootActionUserNameBadRequestExceptionResponse():void
     {
         $this->prepareDatabase();
         $this->getAuthenticatedRootClient();
@@ -72,7 +72,7 @@ class CreateOrganizationActionTest extends FunctionalTestBase
         self::assertEquals(Response::HTTP_BAD_REQUEST,$response->getStatusCode());
     }
 
-    public function testCreateOrganizationRootActionUserSuccessRespose():void
+    public function testCreateOrganizationByRootActionUserSuccessRespose():void
     {
 
         $this->prepareDatabase();
@@ -97,7 +97,7 @@ class CreateOrganizationActionTest extends FunctionalTestBase
     }
 
 
-    public function testCreateOrganizationRootActionUserOrganizationAlreadyExistsResponse():void
+    public function testCreateOrganizationByRootActionUserOrganizationAlreadyExistsResponse():void
     {
         $this->prepareDatabase();
         $this->getAuthenticatedRootClient();
@@ -123,5 +123,30 @@ class CreateOrganizationActionTest extends FunctionalTestBase
         self::assertStringContainsString("OrganizationAlreadyExistsException", $responseData['class']);
     }
 
+    public function testCreateOrganizationByAdminActionUserOrganizationActionNotAllowedExceptionResponse():void
+    {
+        $this->prepareDatabase();
+        $this->getAuthenticatedAdminFrodoClient();
+
+        $payload = [
+            'email' => 'info@organization.com',
+            'name' => 'Setelsa',
+            'legalDocument' => '0000000X',
+            'address' => 'Setelsa example address'
+        ];
+
+        self::$authenticatedAdminFrodoClient->request(
+            Request::METHOD_POST,
+            self::ENDPOINT,
+            [],[],[],
+            json_encode($payload)
+        );
+
+        $response = self::$authenticatedAdminFrodoClient->getResponse();
+
+        self::assertEquals(Response::HTTP_CONFLICT,$response->getStatusCode());
+        $responseData = \json_decode($response->getContent(), true);
+        self::assertStringContainsString("ActionUserActionNotAllowedException", $responseData['class']);
+    }
 
 }
