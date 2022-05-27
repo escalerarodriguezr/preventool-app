@@ -25,6 +25,9 @@ class UserFixtures extends Fixture implements FixtureInterface
     const ROOT_EMAIL = 'root@api.com';
     const ROOT_PASSWORD = 'peter-password';
     const ROOT_ROLE = User::ROLE_ROOT;
+    const ROOT_USER_REFERENCE = 'root-user';
+
+
 
     const ROOT_2_NAME = 'Root_2';
     const ROOT_2_LASTNAME = 'Root_2';
@@ -102,6 +105,8 @@ class UserFixtures extends Fixture implements FixtureInterface
         $manager->persist($frodo_2);
 
         $manager->flush();
+
+        $this->addReference(self::ROOT_USER_REFERENCE, $root);
     }
 
     private function createUser(

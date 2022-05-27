@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHPUnit\Tests\Functional\Http\Organization\CreateOrganization;
 
 use PHPUnit\Tests\Functional\Http\FunctionalTestBase;
+use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\OrganizationFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,8 @@ class CreateOrganizationActionTest extends FunctionalTestBase
     private function prepareDatabase():void
     {
         $this->databaseTool->loadFixtures([
-            UserFixtures::class
+            UserFixtures::class,
+            OrganizationFixtures::class
         ]);
     }
 
@@ -72,6 +74,7 @@ class CreateOrganizationActionTest extends FunctionalTestBase
 
     public function testCreateOrganizationRootActionUserSuccessRespose():void
     {
+
         $this->prepareDatabase();
         $this->getAuthenticatedRootClient();
 
@@ -91,7 +94,33 @@ class CreateOrganizationActionTest extends FunctionalTestBase
 
         $response = self::$authenticatedRootClient->getResponse();
         self::assertEquals(Response::HTTP_CREATED,$response->getStatusCode());
+    }
 
+
+    public function testCreateOrganizationRootActionUserOrganizationAlreadyExistsResponse():void
+    {
+        $this->prepareDatabase();
+        $this->getAuthenticatedRootClient();
+
+        $payload = [
+            'email' => OrganizationFixtures::ORGANIZATION_EMAIL,
+            'name' => OrganizationFixtures::ORGANIZATION_NAME,
+            'legalDocument' => OrganizationFixtures::ORGANIZATION_LEGAL_DOCUMENT,
+            'address' => OrganizationFixtures::ORGANIZATION_ADDRESS
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_POST,
+            self::ENDPOINT,
+            [],[],[],
+            json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+       
+        self::assertEquals(Response::HTTP_CONFLICT,$response->getStatusCode());
+        $responseData = \json_decode($response->getContent(), true);
+        self::assertStringContainsString("OrganizationAlreadyExistsException", $responseData['class']);
     }
 
 
