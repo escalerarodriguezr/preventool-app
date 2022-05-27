@@ -41,7 +41,6 @@ api_put_company:
     path: /api/v1/company
     controller: App\Controller\Company\UpdateCompanyController
     methods: [PUT]
-
 #DEMO
 demo:
     path: /demo
@@ -51,3 +50,9 @@ search-demo:
     path: /demo
     controller: App\Controller\SearchDemoController
     methods: [GET]
+
+#ORGANIZATION ENDPOINTS
+api_post_organization:
+    path: /api/v1/organization
+    controller: App\Controller\Organization\CreateOrganizationController
+    methods: [POST]

@@ -1,0 +1,103 @@
+/api/v1/organization:
+  post:
+    tags:
+      - Organization
+    summary: Create Organization
+    operationId: postOrganization
+    security:
+      - bearerAuth: [ ]
+    style: simple
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                required: true
+                description: User email
+                example: 'fernando@api.com'
+              name:
+                type: string
+                required: true
+                description: Company name
+                example: 'Rivendel'
+              legalDocument:
+                type: string
+                required: false
+                description: Company legal document
+                example: 'X45678989'
+              address:
+                type: string
+                required: false
+                description: Company address
+                example: 'Calle de los elfos Sindar'
+    responses:
+      '201':
+        description: Successful operation
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"
+#  get:
+#    tags:
+#      - Organization
+#    summary: Get Organization
+#    operationId: getOrganization
+#    security:
+#      - bearerAuth: []
+#    style: simple
+#    responses:
+#      '200':
+#        description: Successful operation
+#        content:
+#          application/json:
+#            schema:
+#              $ref: "#/components/schemas/organization/OrganizationView"
+#      '404':
+#        $ref: "#/components/responses/ResourceNotFound"
+#      '409':
+#        $ref: "#/components/responses/ConflictException"
+#      '500':
+#        $ref: "#/components/responses/InternalError"
+#  put:
+#    tags:
+#      - Company
+#    summary: Update Company
+#    operationId: putCompany
+#    security:
+#      - bearerAuth: [ ]
+#    requestBody:
+#      content:
+#        application/json:
+#          schema:
+#            type: object
+#            properties:
+#              name:
+#                type: string
+#                required: false
+#                description: Comany name
+#                example: 'Rivendel'
+#              legalDocument:
+#                type: string
+#                required: false
+#                description: Company legal document
+#                example: 'X45678989'
+#              address:
+#                type: string
+#                required: false
+#                description: Company address
+#                example: 'Calle de los elfos Sindar'
+#    style: simple
+#    responses:
+#      '200':
+#        description: Successful operation
+#      '404':
+#        $ref: "#/components/responses/ResourceNotFound"
+#      '409':
+#        $ref: "#/components/responses/ConflictException"
+#      '500':
+#        $ref: "#/components/responses/InternalError"

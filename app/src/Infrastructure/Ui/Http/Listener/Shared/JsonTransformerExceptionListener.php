@@ -5,6 +5,7 @@ namespace Preventool\Infrastructure\Ui\Http\Listener\Shared;
 
 use Preventool\Domain\Company\Model\Exception\CompanyAlreadyExistsException;
 use Preventool\Domain\Company\Model\Exception\CompanyNotFoundException;
+use Preventool\Domain\Organization\Model\Exception\OrganizationAlreadyExistsException;
 use Preventool\Domain\User\Model\Exception\ActionUserAccessDeniedException;
 use Preventool\Domain\User\Model\Exception\ActionUserActionNotAllowedException;
 use Preventool\Domain\User\Model\Exception\UserAccountNotActiveException;
@@ -77,7 +78,8 @@ class JsonTransformerExceptionListener
             UserAccountNotActiveException::class,
             ActionUserActionNotAllowedException::class,
             CompanyAlreadyExistsException::class,
-            CompanyNotFoundException::class
+            CompanyNotFoundException::class,
+            OrganizationAlreadyExistsException::class
         ];
     }
 

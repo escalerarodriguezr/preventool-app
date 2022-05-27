@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Preventool\Domain\Organization\Model\Entity;
 
+use Preventool\Domain\Shared\Value\Email;
+use Preventool\Domain\Shared\Value\NonEmptyString;
 use Preventool\Domain\User\Model\Entity\User;
 
 class Organization
@@ -23,14 +25,14 @@ class Organization
 
     public function __construct(
         string $uuid,
-        string $name,
-        string $email,
+        NonEmptyString $name,
+        Email $email,
         User $creator,
        )
     {
         $this->uuid = $uuid;
-        $this->name = $name;
-        $this->email = $email;
+        $this->name = $name->getValue();
+        $this->email = $email->getValue();
         $this->legalDocument = null;
         $this->address = null;
         $this->isActive = true;
@@ -45,36 +47,34 @@ class Organization
         $this->updatedOn = new \DateTime();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
 
     public function getUuid(): string
     {
         return $this->uuid;
     }
 
-    public function getName(): string
+    public function getName(): NonEmptyString
     {
-        return $this->name;
+        return new NonEmptyString($this->name);
     }
 
-    public function setName(string $name): void
+    public function setName(NonEmptyString $name): void
     {
-        $this->name = $name;
+        $this->name = $name->getValue();
     }
 
-    public function getEmail(): string
+    public function getEmail(): Email
     {
-        return $this->email;
+        return new Email($this->email);
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(Email $email): void
     {
-        $this->email = $email;
+        $this->email = $email->getValue();
     }
 
     public function getLegalDocument(): ?string
