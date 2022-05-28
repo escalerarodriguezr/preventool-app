@@ -38,7 +38,7 @@ class SearchOrganizationActionTest extends FunctionalTestBase
 
         $response = self::$authenticatedRootClient->getResponse();
 
-        
+
 
         self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
 
