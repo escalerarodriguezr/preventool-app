@@ -23,6 +23,7 @@ class SearchOrganizationRequest implements RequestDTO
         if (empty($request->query->get('filterByIsActive'))) {
             $this->filterByIsActive = null;
         }
+
         if ($request->query->get('filterByIsActive') == "false") {
             $this->filterByIsActive = false;
         }

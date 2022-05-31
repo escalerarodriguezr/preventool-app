@@ -21,7 +21,8 @@ class SearchOrganizationQueryHandler implements QueryHandler
     {
         $filter = new OrganizationFilter(
             $query->getFilterByUuid(),
-            $query->getFilterByEmail()
+            $query->getFilterByEmail(),
+            $query->getFilterByIsActive()
         );
 
         $queryCondition = (new QueryCondition())

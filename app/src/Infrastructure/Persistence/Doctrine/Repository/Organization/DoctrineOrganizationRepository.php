@@ -55,18 +55,24 @@ class DoctrineOrganizationRepository extends MysqlDoctrineBaseRepository impleme
         $queryBuilder = $this->objectRepository->createQueryBuilder('o');
 
         if(!empty($filter->getFilterByEmail())){
-            $queryBuilder->andWhere('u.email = :email')
+            $queryBuilder->andWhere('o.email = :email')
                 ->setParameter(':email', $filter->getFilterByEmail());
         }
 
         if(!empty($filter->getFilterByUuid())){
-            $queryBuilder->andWhere('u.uuid = :uuid')
+            $queryBuilder->andWhere('o.uuid = :uuid')
                 ->setParameter(':uuid', $filter->getFilterByUuid());
         }
 
+        if($filter->getFilterByIsActive() !== null) {
+            $queryBuilder->andWhere
+            (
+                $queryBuilder->expr()->eq('o.isActive', ':active'),
+            )
+                ->setParameter(':active', $filter->getFilterByIsActive());
+        }
 
         return $queryBuilder;
     }
-
 
 }

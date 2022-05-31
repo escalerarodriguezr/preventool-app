@@ -19,6 +19,12 @@ class OrganizationFixtures extends Fixture implements FixtureInterface, Dependen
     const ORGANIZATION_LEGAL_DOCUMENT = 'X9898989811C';
     const ORGANIZATION_ADDRESS = 'Default Rivendel Address';
 
+    const TRAVIMUS_UUID = 'd9419d0f-e8d9-4945-a066-f22ffd54b222';
+    const TRAVIMUS_NAME = 'Travimus';
+    const TRAVIMUS_EMAIL = 'info@travimus.com';
+    const TRAVIMUS_LEGAL_DOCUMENT = 'X9898989999C';
+    const TRAVIMUS_ADDRESS = 'Default Travimus Address';
+
     public function getDependencies()
     {
         return [
@@ -37,6 +43,18 @@ class OrganizationFixtures extends Fixture implements FixtureInterface, Dependen
         $organization->setLegalDocument(self::ORGANIZATION_LEGAL_DOCUMENT);
         $organization->setAddress(self::ORGANIZATION_ADDRESS);
         $manager->persist($organization);
+
+
+        $travimus = new Organization(
+            self::TRAVIMUS_UUID,
+            new NonEmptyString(self::TRAVIMUS_NAME),
+            new Email(self::TRAVIMUS_EMAIL),
+            $this->getReference(UserFixtures::ROOT_USER_REFERENCE)
+        );
+        $travimus->setLegalDocument(self::TRAVIMUS_LEGAL_DOCUMENT);
+        $travimus->setAddress(self::TRAVIMUS_ADDRESS);
+        $manager->persist($travimus);
+
         $manager->flush();
     }
 
