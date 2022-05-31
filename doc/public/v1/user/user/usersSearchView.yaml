@@ -19,50 +19,50 @@ properties:
       properties:
         id:
           type: integer
-          desription: UserId
+          description: UserId
           example: 1
         uuid:
           type: string
-          desription: Public User Uuid
+          description: Public User Uuid
           example: 1e1f4128-9a48-4d94-a056-d87620c26232
         email:
           type: string
-          desription: User Email
+          description: User Email
           example: 'frodo@frodo.com'
         role:
           type: string
-          desription: User Role
+          description: User Role
           example: 'ROLE_ADMIN|ROLE_ROOT|ROLE_USER'
         name:
           type: string
-          desription: User Name
+          description: User Name
           example: 'Frodo'
         lastName:
           type: string
-          desription: User Surname
+          description: User Surname
           example: 'Bolson'
         isEmailConfirmed:
           type: boolean
-          desription: if the user has confirmed his email
+          description: if the user has confirmed his email
           example: true
         isActive:
           type: boolean
-          desription: if the user is active
+          description: if the user is active
           example: true
         creatorUuid:
           type: string
-          desription: User Creator Id
+          description: User Creator Id
           example: 1e1f4128-9a48-4d94-a056-d87620c26232
         updaterUuid:
           type: string
-          desription: User Udater Id
+          description: User Udater Id
           example: 1e1f4128-9a48-4d94-a056-d87620c26232
         createdOn:
           type: string
-          desription: User CreatedOn
+          description: User CreatedOn
           example: "2022-03-15T15:35:14+00:00"
         updatedOn:
           type: string
-          desription: User UdatedOn
+          description: User UdatedOn
           example: "2022-03-15T15:35:14+00:00"
 

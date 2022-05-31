@@ -1,0 +1,55 @@
+type: object
+properties:
+  total:
+    type: integer
+    desription: Total items without pagination
+    example: 100
+  pages:
+    type: integer
+    desription: Total pages
+    example: 2
+  currentPage:
+    type: integer
+    desription: Current Page
+    example: 1
+  items:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: OrganizationId
+          example: 1
+        uuid:
+          type: string
+          description: Public Organization Uuid
+          example: 1e1f4128-9a48-4d94-a056-d87620c26232
+        email:
+          type: string
+          description: Organization Email
+          example: 'info@setelsa.com'
+        name:
+          type: string
+          description: Organization Name
+          example: 'Empresa S.A'
+        legalDocument:
+          type: string
+          description: Organization Legal Document
+          example: 'X997878783A'
+        address:
+          type: string
+          description: Organization address
+          example: "CAlle de la organización 4B"
+        isActive:
+          type: boolean
+          description: if the organization is active
+          example: true
+        createdOn:
+          type: string
+          description: User CreatedOn
+          example: "2022-03-15T15:35:14+00:00"
+        updatedOn:
+          type: string
+          description: User UdatedOn
+          example: "2022-03-15T15:35:14+00:00"

@@ -1,5 +1,7 @@
 OrganizationView:
   $ref: './organization/organizationView.yaml'
+OrganizationsSearchView:
+  $ref: './organization/organizationsSearchView.yaml'
 
 
 
