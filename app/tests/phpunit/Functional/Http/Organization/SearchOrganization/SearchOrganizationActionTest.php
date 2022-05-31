@@ -49,6 +49,7 @@ class SearchOrganizationActionTest extends FunctionalTestBase
         self::assertIsArray($organizations);
         self::assertGreaterThan(0,count($organizations));
         $firstOrganization = $organizations[0];
+        
         self::assertIsArray($firstOrganization);
         self::assertArrayHasKey('id',$firstOrganization);
         self::assertArrayHasKey('uuid',$firstOrganization);

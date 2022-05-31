@@ -34,6 +34,8 @@ class OrganizationFixtures extends Fixture implements FixtureInterface, Dependen
             new Email(self::ORGANIZATION_EMAIL),
             $this->getReference(UserFixtures::ROOT_USER_REFERENCE)
         );
+        $organization->setLegalDocument(self::ORGANIZATION_LEGAL_DOCUMENT);
+        $organization->setAddress(self::ORGANIZATION_ADDRESS);
         $manager->persist($organization);
         $manager->flush();
     }

@@ -64,7 +64,7 @@ class DoctrineOrganizationRepository extends MysqlDoctrineBaseRepository impleme
                 ->setParameter(':uuid', $filter->getFilterByUuid());
         }
 
-        
+
         return $queryBuilder;
     }
 
