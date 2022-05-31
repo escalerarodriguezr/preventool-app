@@ -37,14 +37,28 @@ class SearchOrganizationActionTest extends FunctionalTestBase
         );
 
         $response = self::$authenticatedRootClient->getResponse();
-
-
-
         self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
+        $responseData = \json_decode($response->getContent(), true);
 
+        self::assertArrayHasKey('total', $responseData);
+        self::assertArrayHasKey('pages', $responseData);
+        self::assertArrayHasKey('currentPage', $responseData);
 
-
-
+        self::assertArrayHasKey('items', $responseData);
+        $organizations = $responseData['items'];
+        self::assertIsArray($organizations);
+        self::assertGreaterThan(0,count($organizations));
+        $firstOrganization = $organizations[0];
+        self::assertIsArray($firstOrganization);
+        self::assertArrayHasKey('id',$firstOrganization);
+        self::assertArrayHasKey('uuid',$firstOrganization);
+        self::assertArrayHasKey('name',$firstOrganization);
+        self::assertArrayHasKey('email',$firstOrganization);
+        self::assertArrayHasKey('createdOn',$firstOrganization);
+        self::assertArrayHasKey('updatedOn',$firstOrganization);
+        self::assertArrayHasKey('legalDocument',$firstOrganization);
+        self::assertArrayHasKey('address',$firstOrganization);
+        self::assertArrayHasKey('isActive',$firstOrganization);
 
     }
 

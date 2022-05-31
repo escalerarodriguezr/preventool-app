@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 class SearchOrganizationController
 {
 
-
     public function __construct(
         private QueryBus $queryBus
     )
@@ -33,16 +32,12 @@ class SearchOrganizationController
             ->setFilterByEmail($request->getFilterByEmail())
             ->setFilterByUuid($request->getFilterByUuid())
             ->setFilterByIsActive($request->getFilterByIsActive())
-
         );
 
-        dd($response);
         return new JsonResponse(
-            null,
+            $response->toArray(),
             Response::HTTP_OK
         );
-
     }
-
 
 }
