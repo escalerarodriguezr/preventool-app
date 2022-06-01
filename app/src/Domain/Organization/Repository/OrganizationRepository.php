@@ -10,5 +10,6 @@ use Preventool\Domain\Shared\Repository\View\PaginatedQueryView;
 interface OrganizationRepository
 {
     public function save(Organization $organization):void;
+    public function findByUuid(string $uuid): ?Organization;
     public function searchPaginated(QueryCondition $queryCondition, OrganizationFilter $filter, $fetchJoinCollections = false): PaginatedQueryView;
 }

@@ -12,6 +12,10 @@ properties:
     type: string
     example: "Preventool"
     description: Organization name
+  email:
+    type: string
+    example: "info@preventool.com"
+    description: Organization email
   legalDocument:
     type: string
     example: "X734682378T"

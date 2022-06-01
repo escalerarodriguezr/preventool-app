@@ -8,6 +8,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Preventool\Domain\Organization\Model\Entity\Organization;
 use Preventool\Domain\Organization\Model\Exception\OrganizationAlreadyExistsException;
+use Preventool\Domain\Organization\Model\Exception\OrganizationNotFoundException;
 use Preventool\Domain\Organization\Repository\OrganizationFilter;
 use Preventool\Domain\Organization\Repository\OrganizationRepository;
 use Preventool\Domain\Shared\Repository\QueryCondition\QueryCondition;
@@ -29,6 +30,16 @@ class DoctrineOrganizationRepository extends MysqlDoctrineBaseRepository impleme
             throw OrganizationAlreadyExistsException::withEmail($organization->getEmail());
         }
     }
+
+    public function findByUuid(string $uuid): ?Organization
+    {
+        if (null === $organization = $this->objectRepository->findOneBy(['uuid' => $uuid])) {
+            throw OrganizationNotFoundException::fromUuid($uuid);
+        }
+        return $organization;
+    }
+
+
 
     public function searchPaginated(QueryCondition $queryCondition, OrganizationFilter $filter, $fetchJoinCollections = false): PaginatedQueryView
     {
