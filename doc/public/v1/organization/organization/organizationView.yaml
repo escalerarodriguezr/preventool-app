@@ -12,6 +12,10 @@ properties:
     type: string
     example: "Preventool"
     description: Organization name
+  email:
+    type: string
+    example: "info@preventool.com"
+    description: Organization email
   legalDocument:
     type: string
     example: "X734682378T"
@@ -20,3 +24,11 @@ properties:
     type: string
     example: "Bajada a la Estación B-5"
     description: Organization Address
+  isActive:
+    type: boolean
+    example: true
+    description: User account is active
+  createdOn:
+    type: string
+    example: "2021-10-30T19:42:37+00:00"
+    description: Created DateTime

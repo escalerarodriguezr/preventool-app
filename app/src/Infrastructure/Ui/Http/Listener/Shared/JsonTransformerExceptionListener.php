@@ -6,6 +6,7 @@ namespace Preventool\Infrastructure\Ui\Http\Listener\Shared;
 use Preventool\Domain\Company\Model\Exception\CompanyAlreadyExistsException;
 use Preventool\Domain\Company\Model\Exception\CompanyNotFoundException;
 use Preventool\Domain\Organization\Model\Exception\OrganizationAlreadyExistsException;
+use Preventool\Domain\Organization\Model\Exception\OrganizationNotFoundException;
 use Preventool\Domain\User\Model\Exception\ActionUserAccessDeniedException;
 use Preventool\Domain\User\Model\Exception\ActionUserActionNotAllowedException;
 use Preventool\Domain\User\Model\Exception\UserAccountNotActiveException;
@@ -67,7 +68,8 @@ class JsonTransformerExceptionListener
     private function getNotFoundExceptions(): array
     {
         return [
-            UserNotFoundException::class
+            UserNotFoundException::class,
+            OrganizationNotFoundException::class
         ];
     }
 
