@@ -60,3 +60,7 @@ api_search_organization:
     path: /api/v1/organization
     controller: App\Controller\Organization\SearchOrganizationController
     methods: [GET]
+api_get_organization:
+    path: /api/v1/organization/{uuid}
+    controller: App\Controller\Organization\GetOrganizationByUuidController
+    methods: [GET]
