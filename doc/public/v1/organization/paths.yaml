@@ -133,3 +133,60 @@
         $ref: "#/components/responses/ConflictException"
       '500':
         $ref: "#/components/responses/InternalError"
+
+  put:
+    tags:
+      - Organization
+    summary: Update Organization
+    operationId: putOrganization
+    security:
+      - bearerAuth: [ ]
+    parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          example: "9f285960-f482-4f1b-9c88-549a1b4"
+          description: OrganizationPublicId
+        required: true
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                required: false
+                description: Organization name
+                example: 'Amazon'
+              email:
+                type: string
+                required: false
+                description: Organization email
+                example: 'info@amazon.com'
+              legalDocument:
+                type: string
+                required: false
+                description: Organization Lefal Document
+                example: 'X37898651Y'
+              address:
+                type: string
+                required: false
+                description: Organization address
+                example: 'New Address...'
+              isActive:
+                type: boolean
+                required: false
+                description: If Organization account is active
+                example: false
+    style: simple
+    responses:
+      '200':
+        description: Successful operation
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"
