@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UpdateOrganizationActionTest extends FunctionalTestBase
 {
-    const ENDPOINT = 'v1/api/organization';
+    const ENDPOINT = '/api/v1/organization';
 
     public function setUp():void
     {
@@ -46,7 +46,6 @@ class UpdateOrganizationActionTest extends FunctionalTestBase
         );
 
         $response = self::$authenticatedRootClient->getResponse();
-        dd($response);
         self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
 
     }

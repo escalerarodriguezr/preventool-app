@@ -64,3 +64,7 @@ api_get_organization:
     path: /api/v1/organization/{uuid}
     controller: App\Controller\Organization\GetOrganizationByUuidController
     methods: [GET]
+api_update_organization:
+    path: /api/v1/organization/{uuid}
+    controller: App\Controller\Organization\UpdateOrganizationController
+    methods: [PUT]
