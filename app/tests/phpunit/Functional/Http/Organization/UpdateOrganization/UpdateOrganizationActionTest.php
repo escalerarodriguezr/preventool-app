@@ -46,6 +46,8 @@ class UpdateOrganizationActionTest extends FunctionalTestBase
         );
 
         $response = self::$authenticatedRootClient->getResponse();
+
+        dd($response);
         self::assertEquals(Response::HTTP_OK,$response->getStatusCode());
 
     }
