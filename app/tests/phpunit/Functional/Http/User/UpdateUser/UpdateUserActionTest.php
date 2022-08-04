@@ -10,7 +10,10 @@ use Preventool\Infrastructure\Ui\Http\Request\DTO\User\UpdateUserRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateUserActionTest extends FunctionalTestBase
+class
+
+
+UpdateUserActionTest extends FunctionalTestBase
 {
     private const ENDPOINT = '/api/v1/user';
 

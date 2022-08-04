@@ -12,10 +12,9 @@ class UpdateOrganizationRequest implements RequestDTO
     const NAME = 'name';
     const LEGAL_DOCUMENT = 'legalDocument';
     const ADDRESS = 'address';
+    const IS_ACTIVE = 'isActive';
 
-    /**
-     * @Assert\NotBlank(allowNull = true)
-     */
+
     private ?string $name;
 
     /**
@@ -23,7 +22,6 @@ class UpdateOrganizationRequest implements RequestDTO
      * @Assert\Email()
      */
     private ?string $email;
-
     private ?string $legalDocument;
     private ?string $address;
     private ?bool $isActive;
@@ -36,12 +34,11 @@ class UpdateOrganizationRequest implements RequestDTO
         $this->email  = $request->request->get(self::EMAIL);
         $this->legalDocument = $request->request->get(self::LEGAL_DOCUMENT);
         $this->address = $request->request->get(self::ADDRESS);
-
+        $isActive = $request->request->get(self::IS_ACTIVE);
         $this->isActive = null;
-        if((isset($isActive) && !empty(trim($isActive))) || (isset($isActive) && $isActive == 0 )){
+        if(isset($isActive)){
             $this->isActive = filter_var($isActive, FILTER_VALIDATE_BOOL);
         }
-
 
     }
 
